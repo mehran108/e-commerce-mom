@@ -1,0 +1,11 @@
+<div class="action-panel pull-right">
+  <button class="btn btn-raised mr-1 btn-primary" (click)="open()"  status="primary">
+    Add Banner
+  </button>
+</div>
+<div class="all-show-grid">
+  <ag-grid-angular class="ag-theme-material" [getRowStyle]="getRowStyle" [gridOptions]="gridOptions"
+    [columnDefs]="columnDefs" [pinnedBottomRowData]="pinnedBottomRowData" [modules]="modules" [rowData]="bannerList"
+    (gridReady)="onGridReady($event)" #grid>
+  </ag-grid-angular>
+</div>

@@ -1,0 +1,13 @@
+<div class="container-fluid">
+<div class="action-panel pull-right">
+  <button class="btn btn-raised mr-1 btn-primary" (click)="open()">
+    Add Product
+  </button>
+</div>
+<div class="all-show-grid">
+  <ag-grid-angular class="ag-theme-material" [getRowStyle]="getRowStyle" [gridOptions]="gridOptions"
+    [columnDefs]="columnDefs" [pinnedBottomRowData]="pinnedBottomRowData" [modules]="modules" [rowData]="productList"
+    (gridReady)="onGridReady($event)" #grid>
+  </ag-grid-angular>
+</div>
+</div>

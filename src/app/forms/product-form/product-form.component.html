@@ -1,0 +1,98 @@
+<section id="basic-form-layouts">
+  <div class="row text-left">
+    <div class="card">
+      <div class="card-header pb-2">
+        <h4 class="card-title" id="basic-layout-form">Category</h4>
+        <p class="mb-0"></p>
+      </div>
+      <div class="card-content">
+        <div class="px-3">
+          <form [formGroup]="fg" (ngSubmit)="onSubmit()">
+            <div class="form-body">
+              <div class="row">
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="product-name" class="label">Product Name</label>
+                  <input type="text" class="form-control" formControlName="name" id="product-name"
+                    placeholder="Product Name">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="product-price" class="label">Product Price</label>
+                  <input type="number" class="form-control" formControlName="price" id="product-price"
+                    placeholder="Product Price">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="productCode" class="label">Product Code</label>
+                  <input type="number" class="form-control" formControlName="productCode" id="productCode"
+                    placeholder="Product Code">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="salePrice" class="label">Product Sale Price</label>
+                  <input type="number" class="form-control" formControlName="salePrice" id="salePrice"
+                    placeholder="Product Sale Price">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="discount" class="label">Discount %</label>
+                  <input type="number" class="form-control" formControlName="discount" id="discount"
+                    placeholder="Discount %">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="shortDetails" class="label">Short Details</label>
+                  <input type="text" class="form-control" formControlName="shortDetails" id="shortDetails"
+                    placeholder="Short Details">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="description" class="label">Description</label>
+                  <input type="text" class="form-control" formControlName="description" id="description"
+                    placeholder="Description">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="category" class="label">Category</label>
+                  <select class="form-control" placeholder="Select Category" formControlName="category"
+                    id="sub-category">
+                    <option value="null">Select Category</option>
+                    <option *ngFor="let category of categoryList" [value]="category">{{category.categoryName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="tags" class="label">Tags</label>
+                  <input type="text" class="form-control" formControlName="tags" id="tags" placeholder="Tags">
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="Brand" class="label">Brand</label>
+                  <input type="text" class="form-control" formControlName="brand" id="Brand" placeholder="Brand">
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <input type="checkbox" formControlName="stock" id="stock">
+                  <label for="stock" class="checkbox-label label">Stock</label>
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <input type="checkbox" formControlName="newPro" id="newPro">
+                  <label for="newPro" class="checkbox-label label">New Product</label>
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <input type="checkbox" formControlName="sale" id="sale">
+                  <label for="sale" class="checkbox-label label">Sale</label>
+                </div>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button (click)="activeModal.close()" type="button" class="btn btn-raised btn-raised btn-warning mr-1">
+                <i class="ft-x"></i> Cancel
+              </button>
+              <button type="submit" class="btn btn-raised btn-raised btn-primary">
+                <i class="fa fa-check-square-o"></i> Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
