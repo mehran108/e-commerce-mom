@@ -33,6 +33,7 @@ export class CategoryFormComponent implements OnInit {
     const model = {
       ...this.fg.value
     };
+    model.parentId = +model.parentId;
     if (this.isEdit) {
       this.configService.UpdateCategory(model).subscribe(res => {
         if (res) {

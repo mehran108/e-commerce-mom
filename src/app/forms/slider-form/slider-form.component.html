@@ -2,7 +2,7 @@
   <div class="row text-left">
     <div class="card">
       <div class="card-header pb-2">
-        <h4 class="card-title" id="basic-layout-form">Banner</h4>
+        <h4 class="card-title" id="basic-layout-form">Slider</h4>
         <p class="mb-0"></p>
       </div>
       <div class="card-content">
@@ -11,8 +11,7 @@
             <div class="form-body">
               <div class="form-group">
                 <label for="title" class="label">Title</label>
-                <input type="text" class="form-control" formControlName="title" id="title"
-                  placeholder="Title">
+                <input type="text" class="form-control" formControlName="title" id="title" placeholder="Title">
               </div>
               <div class="form-group">
                 <label for="subTitle" class="label">Sub Title</label>
@@ -20,8 +19,8 @@
                   placeholder="Sub Title">
               </div>
               <div class="form-group">
-                <label>Select File (850 x 500)</label>
-                <input type="file" (change) = "uploadFile($event)" class="form-control-file" id="banner-image">
+                <label>Select File (1920 x 805)</label>
+                <input type="file" (change)="uploadFile($event)" class="form-control-file" id="banner-image">
               </div>
             </div>
             <div class="form-actions">

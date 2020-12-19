@@ -58,6 +58,23 @@ export class ConfigurationService {
     ActivateBanner = (model) => {
         return this.http.put<any>(`${environment.AppBanner}/Activate`, model)
     }
+    // Banner CRUD
+
+    AddSlider = (model) => {
+        return this.http.post<any>(`${environment.AppSlider}/Add`, model)
+    }
+    UpdateSlider = (model) => {
+        return this.http.put<any>(`${environment.AppSlider}/Update`, model)
+    }
+    GetSlider = (params) => {
+        return this.http.get<any>(`${environment.AppSlider}/Get`, { params })
+    }
+    GetSliderList = (params) => {
+        return this.http.get<any>(`${environment.AppSlider}/GetList`, { params })
+    }
+    ActivateSlider = (model) => {
+        return this.http.put<any>(`${environment.AppSlider}/Activate`, model)
+    }
     // Product CRUD
 
     AddProduct = (model) => {

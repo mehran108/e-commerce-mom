@@ -4,6 +4,7 @@ import { BrandComponent } from 'app/brand/brand.component';
 import { CategoryComponent } from 'app/category/category.component';
 import { OrderComponent } from 'app/order/order.component';
 import { ProductComponent } from 'app/product/product.component';
+import { SliderComponent } from 'app/slider/slider.component';
 import { UserComponent } from 'app/user/user.component';
 
 //Route for content layout with sidebar, navbar and footer.
@@ -104,5 +105,9 @@ export const Full_ROUTES: Routes = [
   {
     path: 'brand',
     component: BrandComponent
+  },
+  {
+    path: 'slider',
+    component: SliderComponent
   },
 ];

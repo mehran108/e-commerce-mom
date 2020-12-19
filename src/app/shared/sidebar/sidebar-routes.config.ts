@@ -15,6 +15,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/product', title: 'Products', icon: 'ft-shopping-cart', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     { path: '/category', title: 'Category', icon: 'ft-package', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     { path: '/brand', title: 'Brand', icon: 'ft-clipboard', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    { path: '/slider', title: 'Sliders', icon: 'ft-message-square', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     { path: '/banner', title: 'Banners', icon: 'ft-aperture', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     { path: '/order', title: 'Orders', icon: 'ft-pocket', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
     { path: '/user', title: 'Users', icon: 'ft-users', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
