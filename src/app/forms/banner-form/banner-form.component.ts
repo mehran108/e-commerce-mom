@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 import { CategoryFormComponent } from '../category-form/category-form.component';
 
@@ -13,20 +15,35 @@ import { CategoryFormComponent } from '../category-form/category-form.component'
 export class BannerFormComponent implements OnInit {
   public fg: FormGroup;
   isEdit = false;
+  @Input() content;
+  uploadPercent;
+  documents = [];
   constructor(
     public fb: FormBuilder,
     public activeModal: NgbActiveModal,
     public configService: ConfigurationService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private storage: AngularFireStorage
   ) {
     this.fg = this.fb.group({
       bannerId: [0],
       title: [''],
       subTitle: [''],
-      image: [null]
+      image: [null],
+      isActive: [true]
     })
   }
-
+  ngOnInit() {
+    if (this.content && this.content.rowData) {
+      this.isEdit = true;
+      this.initializeFormWithValues(this.content.rowData);
+    }
+  }
+  initializeFormWithValues = (banner) => {
+    Object.keys(this.fg.controls).forEach(key => {
+      this.fg.controls[key].setValue(banner[key]);
+    })
+  }
   onSubmit() {
     const model = {
       ...this.fg.value
@@ -35,7 +52,7 @@ export class BannerFormComponent implements OnInit {
       this.configService.UpdateBanner(model).subscribe(res => {
         if (res) {
           this.toastr.success('Banner updated successfully.', 'Banner');
-          this.activeModal.close();
+          this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong banner not updated successfully.', 'Banner');
           this.activeModal.close();
@@ -48,7 +65,7 @@ export class BannerFormComponent implements OnInit {
       this.configService.AddBanner(model).subscribe(res => {
         if (res) {
           this.toastr.success('Banner added successfully.', 'Banner');
-          this.activeModal.close();
+          this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong banner not added successfully.', 'Banner');
           this.activeModal.close();
@@ -59,7 +76,31 @@ export class BannerFormComponent implements OnInit {
       })
     }
   }
-  ngOnInit() {
-  }
 
+  uploadFile(event) {
+    if (event && event.target.files.length > 0) {
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.uploadFilesToFirebase(event.target.files[i]);
+      }
+    }
+  }
+  public uploadFilesToFirebase = (file: File) => {
+    const filePath = `Uploads/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe(res => {
+          this.documents.push({ documentPath: res, documentName: file.name });
+          this.fg.controls['image'].setValue(res);
+          console.log(this.documents);
+        });
+      })
+    )
+      .subscribe();
+  }
 }

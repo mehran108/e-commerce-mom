@@ -2,6 +2,10 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductFormComponent } from 'app/forms/product-form/product-form.component';
+import { ButtonRendererComponent } from 'common/button-renderer.component';
+import { NameRendererComponent } from 'common/name.renderer';
+import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
 import { ConfigurationService } from 'services/configuration.service';
 
 @Component({
@@ -13,10 +17,10 @@ export class ProductComponent implements OnInit {
 
   public columnDefs = [{
     headerName: 'Product',
-    field: 'name',
+    field: 'productName',
     cellRenderer: 'nameRenderer',
     cellRendererParams: {
-      onClick: this.openModal.bind(this),
+      onClick: this.open.bind(this),
     },
     pinned: 'left',
   },
@@ -26,7 +30,7 @@ export class ProductComponent implements OnInit {
   },
   {
     headerName: 'Product Sale Price',
-    field: 'salePrice'
+    field: 'salesPrice'
   },
   {
     headerName: 'Product Code',
@@ -38,7 +42,7 @@ export class ProductComponent implements OnInit {
   },
   {
     headerName: 'Category',
-    field: 'category'
+    field: 'category.categoryName'
   },
   {
     headerName: '',
@@ -56,6 +60,7 @@ export class ProductComponent implements OnInit {
   public info: string;
   private gridApi: any;
   public productList = [];
+  public categoryList = [];
   public modules = AllCommunityModules;
   public gridColumnApi: any;
   public pinnedBottomRowData: any;
@@ -63,10 +68,13 @@ export class ProductComponent implements OnInit {
   public selectedCategory: any;
   constructor(
     private modalService: NgbModal,
-    public configService: ConfigurationService
+    public configService: ConfigurationService,
+    public toastr: ToastrService
   ) {
     this.gridOptions = {
       frameworkComponents: {
+        nameRenderer: NameRendererComponent,
+        deleteButtonRenderer: ButtonRendererComponent
       },
       defaultColDef: {
         sortable: true,
@@ -77,7 +85,8 @@ export class ProductComponent implements OnInit {
       paginationAutoPageSize: true,
     };
   }
-  ngOnInit() {
+  async ngOnInit() {
+    this.categoryList = await this.configService.GetCategoryList({}).toPromise();
     this.getProductList();
     this.getRowStyle = (params) => {
       if (params.node.rowPinned) {
@@ -86,41 +95,47 @@ export class ProductComponent implements OnInit {
     };
   }
   open(content) {
-    this.modalService.open(ProductFormComponent, { size: 'lg' }).result.then((result) => {
-
-    }, (reason) => {
-
+    const modalRef = this.modalService.open(ProductFormComponent, { size: 'lg' });
+    modalRef.componentInstance.content = content;
+    modalRef.result.then(res => {
+      if (res) {
+        this.getProductList();
+      }
     });
   }
   openRemoveDialog(row: any): void {
+    const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });
+    modalRef.componentInstance.header = row.rowData.productName;
+    modalRef.componentInstance.content = row.rowData;
+    modalRef.result.then(res => {
+      this.removeProduct(res);
+    });
   }
-  public removeItemMaster(selectedItem: any) {
+  public removeProduct(selectedItem: any) {
     if (selectedItem) {
       const model = {
         ...selectedItem,
         active: false
       };
-      // this.firebaseService.DeleteCategory(selectedItem).then(res => { });
-      // this.confirmationDialogRef.close();
+      this.configService.ActivateProduct(model).subscribe(res => {
+        if (res) {
+          this.toastr.success('Product removed successfully.', 'Product');
+          this.getProductList();
+        }
+      }, error => {
+        this.toastr.info('Product not removed successfully.', 'Oops');
+      })
     }
-  }
-  public openModal(data?) {
-    // if (data && data.rowData) {
-    //   this.selectedCategory = data.rowData;
-    // }
   }
   public getProductList = () => {
     this.configService.GetProductList({}).subscribe((res: any) => {
-      this.productList = res
+      this.productList = res;
+      this.productList = this.productList.map(product => ({ ...product, category: this.categoryList.find(cat => cat.categoryId === product.categoryId) }))
     });
   }
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-  }
-  public cellClicked = (event) => {
-    this.selectedCategory = event.data;
-    this.openModal();
   }
   onFilterTextBoxChanged(event) {
     this.gridOptions.api.setQuickFilter(event.target.value);

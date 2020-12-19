@@ -12,7 +12,7 @@
               <div class="row">
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="product-name" class="label">Product Name</label>
-                  <input type="text" class="form-control" formControlName="name" id="product-name"
+                  <input type="text" class="form-control" formControlName="productName" id="product-name"
                     placeholder="Product Name">
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
@@ -22,12 +22,12 @@
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="productCode" class="label">Product Code</label>
-                  <input type="number" class="form-control" formControlName="productCode" id="productCode"
+                  <input type="text" class="form-control" formControlName="productCode" id="productCode"
                     placeholder="Product Code">
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="salePrice" class="label">Product Sale Price</label>
-                  <input type="number" class="form-control" formControlName="salePrice" id="salePrice"
+                  <input type="number" class="form-control" formControlName="salesPrice" id="salePrice"
                     placeholder="Product Sale Price">
                 </div>
               </div>
@@ -49,10 +49,11 @@
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="category" class="label">Category</label>
-                  <select class="form-control" placeholder="Select Category" formControlName="category"
+                  <select class="form-control" placeholder="Select Category" formControlName="categoryId"
                     id="sub-category">
                     <option value="null">Select Category</option>
-                    <option *ngFor="let category of categoryList" [value]="category">{{category.categoryName}}</option>
+                    <option *ngFor="let category of categoryList" [value]="category.categoryId">
+                      {{category.categoryName}}</option>
                   </select>
                 </div>
               </div>
@@ -63,7 +64,11 @@
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="Brand" class="label">Brand</label>
-                  <input type="text" class="form-control" formControlName="brand" id="Brand" placeholder="Brand">
+                  <select class="form-control" placeholder="Select Brand" formControlName="brandId" id="sub-Brand">
+                    <option value="null">Select Brand</option>
+                    <option *ngFor="let brand of brandList" [value]="brand.brandId">
+                      {{brand.brandName}}</option>
+                  </select>
                 </div>
 
               </div>
@@ -79,6 +84,14 @@
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <input type="checkbox" formControlName="sale" id="sale">
                   <label for="sale" class="checkbox-label label">Sale</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <div class="form-group">
+                    <label>Select File</label>
+                    <input multiple type="file" (change)="uploadFile($event)" class="form-control-file" id="banner-image">
+                  </div>
                 </div>
               </div>
             </div>

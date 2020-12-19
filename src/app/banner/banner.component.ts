@@ -2,6 +2,9 @@ import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BannerFormComponent } from 'app/forms/banner-form/banner-form.component';
+import { ButtonRendererComponent } from 'common/button-renderer.component';
+import { NameRendererComponent } from 'common/name.renderer';
+import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
 import { ConfigurationService } from 'services/configuration.service';
 
 @Component({
@@ -14,19 +17,32 @@ export class BannerComponent implements OnInit {
     {
       headerName: 'Title',
       field: 'title',
-      autoHeight: true,
+      cellRenderer: 'nameRenderer',
+      cellRendererParams: {
+        onClick: this.open.bind(this),
+      },
+      pinned: 'left',
     },
     {
       headerName: 'Sub Title',
       field: 'subTitle',
-      autoHeight: true,
     },
     {
       headerName: 'Image',
       field: 'image',
       cellRenderer: params => {
-        return `<img src=${params.value}>`;
+        return params.value ? `<img width="50" height="50" src=${params.value}>` : '';
       },
+    },
+    {
+      headerName: '',
+      field: 'delete',
+      filter: false,
+      cellRenderer: 'deleteButtonRenderer',
+      cellRendererParams: {
+        onClick: this.openRemoveDialog.bind(this),
+      },
+      width: 80
     }
   ];
   public gridOptions: any;
@@ -44,6 +60,8 @@ export class BannerComponent implements OnInit {
   ) {
     this.gridOptions = {
       frameworkComponents: {
+        nameRenderer: NameRendererComponent,
+        deleteButtonRenderer: ButtonRendererComponent
       },
       defaultColDef: {
         sortable: true,
@@ -63,13 +81,21 @@ export class BannerComponent implements OnInit {
     };
   }
   open(content) {
-    this.modalService.open(BannerFormComponent, {size: 'sm'}).result.then((result) => {
-
-    }, (reason) => {
-
+    const modalRef = this.modalService.open(BannerFormComponent, { size: 'sm' })
+    modalRef.componentInstance.content = content;
+    modalRef.result.then(res => {
+      if (res) {
+        this.getBannerList();
+      }
     });
   }
-  openRemoveGoalDialog(row: any): void {
+  openRemoveDialog(row: any): void {
+    const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });
+    modalRef.componentInstance.header = row.rowData.title;
+    modalRef.componentInstance.content = row.rowData;
+    modalRef.result.then(res => {
+      this.removeItemMaster(res);
+    });
   }
   public removeItemMaster(selectedItem: any) {
     if (selectedItem) {
@@ -77,8 +103,11 @@ export class BannerComponent implements OnInit {
         ...selectedItem,
         active: false
       };
-      // this.firebaseService.DeleteCategory(selectedItem).then(res => { });
-      // this.confirmationDialogRef.close();
+      this.configService.ActivateBanner(model).subscribe(res => {
+        if (res) {
+          this.getBannerList();
+        }
+      })
     }
   }
   public openModal(data?) {

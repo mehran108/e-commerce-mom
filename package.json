@@ -74,6 +74,8 @@
     "sweetalert2": "8.11.6",
     "tslib": "1.9.3",
     "videogular2": "6.4.0",
+    "firebase": "^7.15.5",
+    "@angular/fire": "^6.0.2",
     "web-animations-js": "github:angular/web-animations-js#release_pr208",
     "zone.js": "~0.9.1"
   },

@@ -38,7 +38,13 @@ import { ConfigurationService } from 'services/configuration.service';
 import { BrandComponent } from './brand/brand.component';
 import { BrandFormComponent } from './forms/brand-form/brand-form.component';
 import { HttpInterceptorService } from "services/http-interceptor.service";
-
+import { SharedLibraryModule } from "modules/shared.library.module";
+import { ConfirmationDialogComponent } from "reusable/confirmation-dialog/confirmation-dialog.component";
+import { AngularFireModule } from "@angular/fire";
+import { environment } from "environments/environment";
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -63,18 +69,22 @@ export function createTranslateLoader(http: HttpClient) {
     BannerFormComponent,
     UserFormComponent,
     BrandComponent,
-    BrandFormComponent
+    BrandFormComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
+    SharedLibraryModule,
     AppRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
     ToastrModule.forRoot(),
     NgbModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -92,12 +102,12 @@ export function createTranslateLoader(http: HttpClient) {
     AuthGuard,
     DragulaService,
     ConfigurationService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
+    { provide: BUCKET, useValue: 'gs://angular-systems.appspot.com/' }
   ],
   entryComponents: [
     ProductFormComponent,
@@ -105,7 +115,7 @@ export function createTranslateLoader(http: HttpClient) {
     BannerFormComponent,
     UserFormComponent,
     BrandFormComponent,
-    UserFormComponent
+    UserFormComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

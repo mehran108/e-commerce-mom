@@ -12,11 +12,8 @@ import { ConfigurationService } from 'services/configuration.service';
 export class CategoryFormComponent implements OnInit {
   public fg: FormGroup;
   public isEdit = false;
-  categoryList = [
-    {categoryId: 1, categoryName: 'Men'},
-    {categoryId: 2, categoryName: 'Women'},
-    {categoryId: 3, categoryName: 'Assessories'},
-  ];
+  @Input() content;
+  categoryList = [];
   constructor(
     public fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -24,7 +21,7 @@ export class CategoryFormComponent implements OnInit {
     public toastr: ToastrService
   ) {
     this.fg = this.fb.group({
-      id: [],
+      categoryId: [0],
       categoryName: [''],
       description: [''],
       parentId: [null],
@@ -40,7 +37,7 @@ export class CategoryFormComponent implements OnInit {
       this.configService.UpdateCategory(model).subscribe(res => {
         if (res) {
           this.toastr.success('Category updated successfully.', 'Category');
-          this.activeModal.close();
+          this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Category not updated successfully.', 'Category');
           this.activeModal.close();
@@ -53,7 +50,7 @@ export class CategoryFormComponent implements OnInit {
       this.configService.AddCategory(model).subscribe(res => {
         if (res) {
           this.toastr.success('Category added successfully.', 'Category');
-          this.activeModal.close();
+          this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Category not added successfully.', 'Category');
           this.activeModal.close();
@@ -65,6 +62,18 @@ export class CategoryFormComponent implements OnInit {
     }
   }
   ngOnInit() {
+    this.configService.GetCategoryList({}).subscribe(res => {
+      this.categoryList = res;
+    });
+    if (this.content && this.content.rowData) {
+      this.isEdit = true;
+      this.initializeFormWithValues(this.content.rowData);
+    }
+  }
+  initializeFormWithValues = (categiry) => {
+    Object.keys(this.fg.controls).forEach(key => {
+      this.fg.controls[key].setValue(categiry[key]);
+    })
   }
 
 }

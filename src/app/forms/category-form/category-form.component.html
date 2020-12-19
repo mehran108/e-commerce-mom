@@ -23,7 +23,7 @@
                 <label for="category" class="label">Category</label>
                 <select class="form-control" placeholder="Select Category" formControlName="parentId" id="sub-category">
                   <option value="null">Select Category</option>
-                  <option *ngFor="let category of categoryList" [value]="category">{{category.categoryName}}</option>
+                  <option *ngFor="let category of categoryList" [value]="category.categoryId">{{category.categoryName}}</option>
                 </select>
               </div>
             </div>

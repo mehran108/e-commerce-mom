@@ -4,6 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryFormComponent } from 'app/forms/category-form/category-form.component';
 import { ConfigurationService } from 'services/configuration.service';
 import { BrandFormComponent } from 'app/forms/brand-form/brand-form.component';
+import { NameRendererComponent } from 'common/name.renderer';
+import { ButtonRendererComponent } from 'common/button-renderer.component';
+import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
 @Component({
   selector: 'app-brand',
   templateUrl: './brand.component.html',
@@ -16,13 +19,13 @@ export class BrandComponent implements OnInit {
       field: 'brandName',
       cellRenderer: 'nameRenderer',
       cellRendererParams: {
-        onClick: this.openModal.bind(this),
+        onClick: this.open.bind(this),
       },
       pinned: 'left',
     },
     {
       headerName: 'Brand Description',
-      field: 'descripiton',
+      field: 'description',
       width: 500
     },
     {
@@ -51,6 +54,8 @@ export class BrandComponent implements OnInit {
   ) {
     this.gridOptions = {
       frameworkComponents: {
+        nameRenderer: NameRendererComponent,
+        deleteButtonRenderer: ButtonRendererComponent
       },
       defaultColDef: {
         sortable: true,
@@ -70,13 +75,21 @@ export class BrandComponent implements OnInit {
     };
   }
   open(content) {
-    this.modalService.open(BrandFormComponent, { size: 'sm' }).result.then((result) => {
-
-    }, (reason) => {
-
+    const modalRef = this.modalService.open(BrandFormComponent, { size: 'sm' })
+    modalRef.componentInstance.content = content;
+    modalRef.result.then(res => {
+      if (res) {
+        this.getBrandList();
+      }
     });
   }
   openRemoveDialog(row: any): void {
+    const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });
+    modalRef.componentInstance.header = row.rowData.brandName;
+    modalRef.componentInstance.content = row.rowData;
+    modalRef.result.then(res => {
+      this.removeItemMaster(res);
+    });
   }
   public removeItemMaster(selectedItem: any) {
     if (selectedItem) {
@@ -84,6 +97,11 @@ export class BrandComponent implements OnInit {
         ...selectedItem,
         active: false
       };
+      this.configService.ActivateBrand(model).subscribe(res => {
+        if (res) {
+          this.getBrandList();
+        }
+      })
     }
   }
   public openModal(data?) {

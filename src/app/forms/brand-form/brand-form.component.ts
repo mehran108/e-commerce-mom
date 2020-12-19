@@ -12,6 +12,7 @@ import { ConfigurationService } from 'services/configuration.service';
 export class BrandFormComponent implements OnInit {
   public fg: FormGroup;
   isEdit = false;
+  @Input() content;
   constructor(
     public fb: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -19,13 +20,23 @@ export class BrandFormComponent implements OnInit {
     public toastr: ToastrService
   ) {
     this.fg = this.fb.group({
-      id: [],
+      brandId: [0],
       brandName: [''],
-      brandDescription: [''],
+      description: [''],
       isActive: [true]
     })
   }
-
+  ngOnInit() {
+    if (this.content && this.content.rowData) {
+      this.isEdit = true;
+      this.initializeFormWithValues(this.content.rowData);
+    }
+  }
+  initializeFormWithValues = (brand) => {
+    Object.keys(this.fg.controls).forEach(key => {
+      this.fg.controls[key].setValue(brand[key]);
+    })
+  }
   onSubmit() {
     const model = {
       ...this.fg.value
@@ -34,7 +45,7 @@ export class BrandFormComponent implements OnInit {
       this.configService.UpdateBrand(model).subscribe(res => {
         if (res) {
           this.toastr.success('Brand updated successfully.', 'Brand');
-          this.activeModal.close();
+          this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Brand not updated successfully.', 'Brand');
           this.activeModal.close();
@@ -47,7 +58,7 @@ export class BrandFormComponent implements OnInit {
       this.configService.AddBrand(model).subscribe(res => {
         if (res) {
           this.toastr.success('Brand added successfully.', 'Brand');
-          this.activeModal.close();
+          this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Brand not added successfully.', 'Brand');
           this.activeModal.close();
@@ -57,8 +68,6 @@ export class BrandFormComponent implements OnInit {
         this.activeModal.close();
       })
     }
-  }
-  ngOnInit() {
   }
 
 }
