@@ -118,4 +118,7 @@ export class ConfigurationService {
     ActivateOrder = (model) => {
         return this.http.put<any>(`${environment.AppOrder}/Activate`, model)
     }
+    ActivateProductDocument = (model) => {
+        return this.http.put<any>(`${environment.AppDocument}/Activate`, model)
+    }
 }

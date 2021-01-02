@@ -87,16 +87,26 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6 form-group">
                   <div class="form-group">
-                    <label>Select File</label>
-                    <input multiple type="file" (change)="uploadFile($event)" class="form-control-file" id="banner-image">
+                    <label>Select File (500 x 500)</label>
+                    <input multiple type="file" (change)="uploadFile($event)" class="form-control-file"
+                      id="banner-image">
                   </div>
                 </div>
               </div>
             </div>
+            <div class="gallerize-example">
+              <div class="row container" gallerize>
+                <div *ngFor="let img of documents" class="col-md-4">
+                  <img style="width: 100%" [src]="img.url">
+                  <span (click) = "openConfirmation(img)" class="material-icons">delete</span>
+
+                </div>
+              </div>
+            </div>
             <div class="form-actions">
-              <button (click)="activeModal.close()" type="button" class="btn btn-raised btn-raised btn-warning mr-1">
+              <button type="button" class="btn btn-raised btn-raised btn-warning mr-1">
                 <i class="ft-x"></i> Cancel
               </button>
               <button type="submit" class="btn btn-raised btn-raised btn-primary">

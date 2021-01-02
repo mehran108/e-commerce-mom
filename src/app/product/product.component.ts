@@ -1,5 +1,6 @@
 import { AllCommunityModules } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProductFormComponent } from 'app/forms/product-form/product-form.component';
 import { ButtonRendererComponent } from 'common/button-renderer.component';
@@ -69,7 +70,8 @@ export class ProductComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     public configService: ConfigurationService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    public router: Router
   ) {
     this.gridOptions = {
       frameworkComponents: {
@@ -95,13 +97,20 @@ export class ProductComponent implements OnInit {
     };
   }
   open(content) {
-    const modalRef = this.modalService.open(ProductFormComponent, { size: 'lg' });
-    modalRef.componentInstance.content = content;
-    modalRef.result.then(res => {
-      if (res) {
-        this.getProductList();
-      }
-    });
+    // const modalRef = this.modalService.open(ProductFormComponent, { size: 'lg' });
+    // modalRef.componentInstance.content = content;
+    // modalRef.result.then(res => {
+    //   if (res) {
+    //     this.getProductList();
+    //   }
+    // });
+    if (content) {
+      this.router.navigate(['/product-form'], {queryParams: {
+        id: btoa(content.rowData.productId)
+      }})
+    } else {
+      this.router.navigate(['/product-form'])
+    }
   }
   openRemoveDialog(row: any): void {
     const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });

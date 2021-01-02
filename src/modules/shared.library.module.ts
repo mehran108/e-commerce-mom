@@ -15,6 +15,9 @@ import { EditButtonRendererComponent } from "../common/edit-button-renderer";
 import { ViewRendererComponent } from "../common/view-renderer";
 import { ToggleButtonRendererComponent } from "../common/toggle-button-renderer";
 import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
+import { GalleryModule } from '@ngx-gallery/core';
+import { LightboxModule } from '@ngx-gallery/lightbox';
+import { GallerizeModule } from '@ngx-gallery/gallerize';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -27,6 +30,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ToastrModule.forRoot(),
     PerfectScrollbarModule,
     AgGridModule.forRoot(),
+    GalleryModule,
+    LightboxModule.withConfig({ panelClass: 'fullscreen' }),
+    GallerizeModule,
   ],
   providers: [
     LocalstorageService,
@@ -48,7 +54,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditButtonRendererComponent,
     ToggleButtonRendererComponent,
     ViewRendererComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    GalleryModule,
+    LightboxModule,
+    GallerizeModule,
   ],
   declarations: [
     NameRendererComponent,

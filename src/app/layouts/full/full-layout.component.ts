@@ -32,7 +32,7 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
   options = {
     direction: "ltr",
-    bgColor: "black",
+    bgColor: "white",
     bgImage: "assets/img/sidebar-bg/01.jpg"
   };
   hideSidebar: boolean;
@@ -40,7 +40,7 @@ export class FullLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
   iscollapsed = false;
   isSidebar_sm = false;
   isSidebar_lg = false;
-  bgColor = "black";
+  bgColor = "white";
   bgImage = "assets/img/sidebar-bg/01.jpg";
 
   public config: any = {};

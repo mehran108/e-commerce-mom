@@ -2,6 +2,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BannerComponent } from 'app/banner/banner.component';
 import { BrandComponent } from 'app/brand/brand.component';
 import { CategoryComponent } from 'app/category/category.component';
+import { ProductFormComponent } from 'app/forms/product-form/product-form.component';
 import { OrderComponent } from 'app/order/order.component';
 import { ProductComponent } from 'app/product/product.component';
 import { SliderComponent } from 'app/slider/slider.component';
@@ -85,6 +86,10 @@ export const Full_ROUTES: Routes = [
   {
     path: 'product',
     component: ProductComponent
+  },
+  {
+    path: 'product-form',
+    component: ProductFormComponent
   },
   {
     path: 'category',

@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from '@ngx-gallery/core';
+import { Lightbox } from '@ngx-gallery/lightbox';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
 import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 
@@ -15,6 +19,7 @@ export class ProductFormComponent implements OnInit {
 
   @Input() title;
   @Input() content;
+  items: GalleryItem[];
   files = [];
   public fg: FormGroup;
   isEdit = false;
@@ -22,16 +27,21 @@ export class ProductFormComponent implements OnInit {
   brandList = [];
   uploadPercent;
   documents = [];
+  productId;
   constructor(
     public fb: FormBuilder,
-    public activeModal: NgbActiveModal,
+    // public activeModal: NgbActiveModal,
     public configService: ConfigurationService,
     public toastr: ToastrService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    public gallery: Gallery, public lightbox: Lightbox,
+    public route: ActivatedRoute,
+    private modalService: NgbModal
   ) {
   }
 
   ngOnInit() {
+
     this.configService.GetCategoryList({}).subscribe(res => {
       this.categoryList = res;
     });
@@ -39,10 +49,42 @@ export class ProductFormComponent implements OnInit {
       this.brandList = res;
     });
     this.initializeForm();
-    if (this.content && this.content.rowData) {
+    this.route.queryParams.subscribe(params => {
+      if (params && params.id) {
+        this.productId = atob(params.id);
+        this.getProduct();
+      }
+    });
+    this.loadGallery();
+  }
+  getProduct() {
+    this.configService.GetProduct({ productId: this.productId }).subscribe(res => {
       this.isEdit = true;
-      this.initializeFormWithValues(this.content.rowData);
-    }
+      this.initializeFormWithValues(res);
+      this.documents = res.pictures;
+      this.loadGallery();
+    });
+  }
+  loadGallery = () => {
+    /** Basic Gallery Example */
+
+    // Creat gallery items
+    this.items = this.documents.map(item => new ImageItem({ src: item.url, thumb: item.url }));
+
+
+    /** Lightbox Example */
+
+    // Get a lightbox gallery ref
+    const lightboxRef = this.gallery.ref('lightbox');
+
+    // Add custom gallery config to the lightbox (optional)
+    lightboxRef.setConfig({
+      imageSize: ImageSize.Cover,
+      thumbPosition: ThumbnailsPosition.Bottom
+    });
+
+    // Load items into the lightbox gallery ref
+    lightboxRef.load(this.items);
   }
   initializeFormWithValues = (brand) => {
     Object.keys(this.fg.controls).forEach(key => {
@@ -84,6 +126,8 @@ export class ProductFormComponent implements OnInit {
 
   }
   onSubmit() {
+    const doc = this.documents.filter(document => !document.documentId);
+    this.fg.controls['pictures'].setValue(this.documents);
     const model = {
       ...this.fg.value
     };
@@ -92,27 +136,27 @@ export class ProductFormComponent implements OnInit {
       this.configService.UpdateProduct(model).subscribe(res => {
         if (res) {
           this.toastr.success('Product updated successfully.', 'Product');
-          this.activeModal.close(true);
+          // this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
-          this.activeModal.close();
+          // this.activeModal.close();
         }
       }, error => {
         this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
-        this.activeModal.close();
+        // this.activeModal.close();
       });
     } else {
       this.configService.AddProduct(model).subscribe(res => {
         if (res) {
           this.toastr.success('Product added successfully.', 'Product');
-          this.activeModal.close(true);
+          // this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Product not added successfully.', 'Product');
-          this.activeModal.close();
+          // this.activeModal.close();
         }
       }, error => {
         this.toastr.info('Something went wrong Product not added successfully.', 'Product');
-        this.activeModal.close();
+        // this.activeModal.close();
       })
     }
   }
@@ -134,11 +178,34 @@ export class ProductFormComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(res => {
-          this.documents.push({ documentPath: res, documentName: file.name });
+          this.documents.push({ url: res, documentName: file.name });
           console.log(this.documents);
         });
       })
     )
       .subscribe();
+  }
+  openConfirmation = (document) => {
+    const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });
+    modalRef.componentInstance.header = 'Picture';
+    modalRef.componentInstance.content = document;
+    modalRef.result.then(res => {
+      if (res) {
+        if (document.documentId) {
+          const model = {
+            ...document,
+            active: false
+          }
+          this.configService.ActivateProductDocument(model).subscribe(res => {
+            if (res) {
+              this.documents = this.documents.filter(doc => doc.documentId !== document.documentId);
+            }
+          });
+        } else {
+          this.documents = this.documents.filter(doc => doc.documentId !== document.documentId)
+        }
+      }
+    });
+
   }
 }
