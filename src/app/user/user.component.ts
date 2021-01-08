@@ -83,7 +83,7 @@ export class UserComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
     }
   }

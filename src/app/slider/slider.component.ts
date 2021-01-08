@@ -101,7 +101,7 @@ export class SliderComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
       this.configService.ActivateSlider(model).subscribe(res => {
         if (res) {

@@ -101,7 +101,7 @@ export class BannerComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
       this.configService.ActivateBanner(model).subscribe(res => {
         if (res) {

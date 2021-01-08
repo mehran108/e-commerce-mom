@@ -124,7 +124,7 @@ export class ProductComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
       this.configService.ActivateProduct(model).subscribe(res => {
         if (res) {

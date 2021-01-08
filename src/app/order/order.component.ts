@@ -90,7 +90,7 @@ export class OrderComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
     }
   }

@@ -95,7 +95,7 @@ export class BrandComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
       this.configService.ActivateBrand(model).subscribe(res => {
         if (res) {

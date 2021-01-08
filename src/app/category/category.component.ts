@@ -97,7 +97,7 @@ export class CategoryComponent implements OnInit {
     if (selectedItem) {
       const model = {
         ...selectedItem,
-        active: false
+        isActive: false
       };
       this.configService.ActivateCategory(model).subscribe(res => {
         if (res) {
