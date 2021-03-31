@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTitles: string[] = [];
   expanded: boolean;
   nav_collapsed_open = false;
-  logoUrl = 'assets/img/logo.png';
+  logoUrl = 'assets/img/unnamed.png';
   public config: any = {};
   layoutSub: Subscription;
 
@@ -47,7 +47,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (options) {
           if (options.bgColor) {
             if (options.bgColor === 'white') {
-              this.logoUrl = 'assets/img/logo-dark.png';
+              this.logoUrl = 'assets/img/unnamed.png';
             }
             else {
               this.logoUrl = 'assets/img/logo.png';
@@ -80,7 +80,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     if (this.config.layout.sidebar.backgroundColor === 'white') {
-      this.logoUrl = 'assets/img/logo-dark.png';
+      this.logoUrl = 'assets/img/unnamed.png';
     }
     else {
       this.logoUrl = 'assets/img/logo.png';

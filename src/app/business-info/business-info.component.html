@@ -1,0 +1,9 @@
+<div class="container-fluid">
+  <div class="all-show-grid">
+    <ag-grid-angular class="ag-theme-material" [getRowStyle]="getRowStyle" [gridOptions]="gridOptions"
+      [columnDefs]="columnDefs" [pinnedBottomRowData]="pinnedBottomRowData" [modules]="modules" [rowData]="lookupList"
+      (gridReady)="onGridReady($event)" #grid>
+    </ag-grid-angular>
+  </div>
+  
+</div>

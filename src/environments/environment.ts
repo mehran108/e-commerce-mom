@@ -13,6 +13,7 @@ export const environment = {
   AppUser: `${url}/User`,
   AppSlider: `${url}/Slider`,
   AppDocument: `${url}/Document`,
+  AppValue: `${url}/Values`,
   firebaseConfig: {
     apiKey: 'AIzaSyB9JuijGrW7ikudwKDo2VhGRxVwtkWiUUs',
     authDomain: 'angular-systems.firebaseapp.com',

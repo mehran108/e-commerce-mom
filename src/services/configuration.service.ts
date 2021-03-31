@@ -121,4 +121,10 @@ export class ConfigurationService {
     ActivateProductDocument = (model) => {
         return this.http.put<any>(`${environment.AppDocument}/Activate`, model)
     }
+    UpdateLookupValue = (model) => {
+        return this.http.put<any>(`${environment.AppValue}/UpdateLookupValue`, model)
+    }
+    GetLookupByCode = (params) => {
+        return this.http.get<any>(`${environment.AppValue}/GetLookupByCode`, { params })
+    }
 }

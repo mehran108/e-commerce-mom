@@ -18,7 +18,7 @@ export class LoginPageComponent {
     // On submit button click
     onSubmit() {
         // this.loginForm.reset();
-        this.router.navigate(['/dashboard/dashboard1']);
+        this.router.navigate(['/dashboard']);
     }
     // On Forgot password link click
     onForgotPassword() {

@@ -47,6 +47,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule, BUCKET } from '@angular/fire/storage';
 import { SliderComponent } from './slider/slider.component';
 import { SliderFormComponent } from "./forms/slider-form/slider-form.component";
+import { BusinessInfoComponent } from './business-info/business-info.component';
+import { BusinessInfoFormComponent } from "./forms/business-info-form/business-info-form.component";
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -73,7 +75,9 @@ export function createTranslateLoader(http: HttpClient) {
     BrandComponent,
     BrandFormComponent,
     SliderFormComponent,
-    SliderComponent
+    SliderComponent,
+    BusinessInfoComponent,
+    BusinessInfoFormComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -120,7 +124,8 @@ export function createTranslateLoader(http: HttpClient) {
     UserFormComponent,
     BrandFormComponent,
     UserFormComponent,
-    SliderFormComponent
+    SliderFormComponent,
+    BusinessInfoFormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

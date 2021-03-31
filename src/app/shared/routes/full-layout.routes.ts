@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { BannerComponent } from 'app/banner/banner.component';
 import { BrandComponent } from 'app/brand/brand.component';
+import { BusinessInfoComponent } from 'app/business-info/business-info.component';
 import { CategoryComponent } from 'app/category/category.component';
 import { ProductFormComponent } from 'app/forms/product-form/product-form.component';
 import { OrderComponent } from 'app/order/order.component';
@@ -23,7 +24,7 @@ export const Full_ROUTES: Routes = [
     path: 'charts',
     loadChildren: () => import('../../charts/charts.module').then(m => m.ChartsNg2Module)
   },
-   {
+  {
     path: 'forms',
     loadChildren: () => import('../../forms/forms.module').then(m => m.FormModule)
   },
@@ -114,5 +115,9 @@ export const Full_ROUTES: Routes = [
   {
     path: 'slider',
     component: SliderComponent
+  },
+  {
+    path: 'business-info',
+    component: BusinessInfoComponent
   },
 ];

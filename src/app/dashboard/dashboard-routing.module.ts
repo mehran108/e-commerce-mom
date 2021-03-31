@@ -9,17 +9,17 @@ const routes: Routes = [
     path: '',
     children: [
       {
+        path: '',
+        component: Dashboard2Component,
+        data: {
+          title: 'Dashboard'
+        }
+      },
+      {
         path: 'dashboard1',
         component: Dashboard1Component,
         data: {
           title: 'Dashboard 1'
-        }
-      },
-      {
-        path: 'dashboard2',
-        component: Dashboard2Component,
-        data: {
-          title: 'Dashboard 2'
         }
       },
     ]
