@@ -49,6 +49,7 @@ import { SliderComponent } from './slider/slider.component';
 import { SliderFormComponent } from "./forms/slider-form/slider-form.component";
 import { BusinessInfoComponent } from './business-info/business-info.component';
 import { BusinessInfoFormComponent } from "./forms/business-info-form/business-info-form.component";
+import { NgxSpinnerModule } from "ngx-spinner";
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -103,7 +104,8 @@ export function createTranslateLoader(http: HttpClient) {
     AgmCoreModule.forRoot({
       apiKey: "YOUR KEY"
     }),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    NgxSpinnerModule
   ],
   providers: [
     AuthService,

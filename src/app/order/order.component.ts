@@ -1,6 +1,9 @@
-import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import { AllCommunityModules, ValueGetterParams } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
+import { ButtonRendererComponent } from 'common/button-renderer.component';
+import { NameRendererComponent } from 'common/name.renderer';
 import { ConfigurationService } from 'services/configuration.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-order',
@@ -9,36 +12,63 @@ import { ConfigurationService } from 'services/configuration.service';
 })
 export class OrderComponent implements OnInit {
   public columnDefs = [
-    {
+    { 
+      headerName: 'Sr. no',
+      valueGetter: (args) => this._getIndexValue(args),
+      cellRenderer: 'nameRenderer',
+      cellRendererParams: {
+      onClick: this.open.bind(this),
+     },
+      pinned: 'left',
+      width:120
+     }
+     ,
+     {
       headerName: 'Order Code',
-      field: 'orderCode',
+      field: 'productCode',
     },
     {
-      headerName: 'First Name',
-      field: 'userDetails.user_details.first_name',
+      headerName: 'Total Price',
+      field: 'orderPrice',
     },
     {
-      headerName: 'Last Name',
-      field: 'userDetails.user_details.last_name'
+      headerName: 'User Name',
+      field: 'userName',
     },
     {
-      headerName: 'Last Name',
-      field: 'userDetails.user_details.last_name'
+      headerName: 'Phone',
+      field: 'userPhone',
     },
     {
-      headerName: 'Contact',
-      field: 'userDetails.user_details.mobile'
+      headerName: 'S_R Name',
+      field: 'shippingRecieverName'
     },
     {
-      headerName: 'City',
-      field: 'userDetails.user_details.city_state'
+      headerName: 'S_R Phone',
+      field: 'shippingPersonPhone'
     },
     {
-      headerName: 'Country',
-      field: 'userDetails.user_details.country'
+      headerName: 'S_R Address',
+      field: 'shipperAddress'
     },
     {
-      headerName: '',
+      headerName: 'B_R Name',
+      field: 'billRecieverName'
+    },
+    {
+      headerName: 'B_R Phone',
+      field: 'billPersonPhone'
+    },
+    {
+      headerName: 'B_R Address',
+      field: 'billingAddress'
+    },
+    {
+      headerName: 'Status',
+      field: 'orderStatus'
+    },
+    {
+      headerName: 'Action',
       field: 'delete',
       filter: false,
       pinned: 'right',
@@ -46,9 +76,12 @@ export class OrderComponent implements OnInit {
       cellRendererParams: {
         onClick: this.openRemoveDialog.bind(this),
       },
-      width: 80
+      width: 120
     }
   ];
+  _getIndexValue(args: ValueGetterParams): any {
+    return args.node.rowIndex + 1;
+  } 
   public gridOptions: any;
   public info: string;
   private gridApi: any;
@@ -59,10 +92,13 @@ export class OrderComponent implements OnInit {
   public getRowStyle: any;
   public selectedCategory: any;
   constructor(
-    public configService: ConfigurationService
+    public configService: ConfigurationService,
+    private modalService: NgbModal
   ) {
     this.gridOptions = {
       frameworkComponents: {
+        nameRenderer: NameRendererComponent,
+        deleteButtonRenderer: ButtonRendererComponent
       },
       defaultColDef: {
         sortable: true,
@@ -82,6 +118,13 @@ export class OrderComponent implements OnInit {
     };
   }
   open() {
+    // const modalRef = this.modalService.open(Order, { size: 'sm' })
+    // modalRef.componentInstance.content = content;
+    // modalRef.result.then(res => {
+    //   if (res) {
+    //     this.getBannerList();
+    //   }
+    // });
   }
   openRemoveDialog(row: any): void {
 
@@ -102,6 +145,7 @@ export class OrderComponent implements OnInit {
   public getOrderList = () => {
     this.configService.GetOrderList({}).subscribe(res => {
       this.orderList = res;
+      console.log("orderList",this.orderList);
     })
   }
   onGridReady(params) {

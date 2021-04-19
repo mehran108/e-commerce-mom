@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 import { CategoryFormComponent } from '../category-form/category-form.component';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-banner-form',
@@ -23,7 +24,8 @@ export class BannerFormComponent implements OnInit {
     public activeModal: NgbActiveModal,
     public configService: ConfigurationService,
     public toastr: ToastrService,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private spinner: NgxSpinnerService
   ) {
     this.fg = this.fb.group({
       bannerId: [0],
@@ -79,6 +81,7 @@ export class BannerFormComponent implements OnInit {
 
   uploadFile(event) {
     if (event && event.target.files.length > 0) {
+      this.spinner.show();
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < event.target.files.length; i++) {
         this.uploadFilesToFirebase(event.target.files[i]);
@@ -97,6 +100,7 @@ export class BannerFormComponent implements OnInit {
         fileRef.getDownloadURL().subscribe(res => {
           this.documents.push({ documentPath: res, documentName: file.name });
           this.fg.controls['image'].setValue(res);
+          this.spinner.hide();
           console.log(this.documents);
         });
       })

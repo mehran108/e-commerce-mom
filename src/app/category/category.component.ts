@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import { AllCommunityModules, ValueGetterParams } from '@ag-grid-community/all-modules';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CategoryFormComponent } from 'app/forms/category-form/category-form.component';
 import { ConfigurationService } from 'services/configuration.service';
@@ -15,14 +15,25 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CategoryComponent implements OnInit {
   public columnDefs = [
+    { 
+      headerName: 'Sr. no',
+      valueGetter: (args) => this._getIndexValue(args),
+      cellRenderer: 'nameRenderer',
+     cellRendererParams: {
+       onClick: this.open.bind(this),
+     },
+      pinned: 'left',
+      width:120
+     }
+    ,
     {
       headerName: 'Category',
-      field: 'categoryName',
-      cellRenderer: 'nameRenderer',
-      cellRendererParams: {
-        onClick: this.open.bind(this),
-      },
-      pinned: 'left',
+      field: 'categoryName'
+      // cellRenderer: 'nameRenderer',
+      // cellRendererParams: {
+      //   onClick: this.open.bind(this),
+      // },
+      // pinned: 'left',
     },
     {
       headerName: 'Category Description',
@@ -40,6 +51,9 @@ export class CategoryComponent implements OnInit {
       width: 80
     }
   ];
+  _getIndexValue(args: ValueGetterParams): any {
+    return args.node.rowIndex + 1;
+} 
   public gridOptions: any;
   public info: string;
   private gridApi: any;

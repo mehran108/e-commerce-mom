@@ -20,6 +20,7 @@ import { InputsComponent } from './elements/inputs/inputs.component';
 import { InputGroupsComponent } from './elements/input-groups/input-groups.component';
 import { InputGridComponent } from './elements/input-grid/input-grid.component';
 import { ArchwizardComponent } from './archwizard/archwizard.component';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { ArchwizardComponent } from './archwizard/archwizard.component';
         ArchwizardModule,
         CustomFormsModule,
         MatchHeightModule,
-        NgbModule
+        NgbModule,
+        NgxSpinnerService
     ],
     declarations: [
         ValidationFormsComponent,

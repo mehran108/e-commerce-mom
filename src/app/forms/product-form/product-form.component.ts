@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
 import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-product-form',
@@ -36,11 +37,13 @@ export class ProductFormComponent implements OnInit {
     private storage: AngularFireStorage,
     public gallery: Gallery, public lightbox: Lightbox,
     public route: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {
   }
 
   ngOnInit() {
+    
 
     this.configService.GetCategoryList({}).subscribe(res => {
       this.categoryList = res;
@@ -161,7 +164,9 @@ export class ProductFormComponent implements OnInit {
     }
   }
   uploadFile(event) {
+
     if (event && event.target.files.length > 0) {
+      this.spinner.show();
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < event.target.files.length; i++) {
         this.uploadFilesToFirebase(event.target.files[i]);
@@ -179,11 +184,15 @@ export class ProductFormComponent implements OnInit {
       finalize(() => {
         fileRef.getDownloadURL().subscribe(res => {
           this.documents.push({ url: res, documentName: file.name });
+          this.spinner.hide();
+          
           console.log(this.documents);
         });
       })
     )
       .subscribe();
+
+      
   }
   openConfirmation = (document) => {
     const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });

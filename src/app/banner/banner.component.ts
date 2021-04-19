@@ -1,4 +1,4 @@
-import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import { AllCommunityModules, ValueGetterParams } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BannerFormComponent } from 'app/forms/banner-form/banner-form.component';
@@ -14,14 +14,25 @@ import { ConfigurationService } from 'services/configuration.service';
 })
 export class BannerComponent implements OnInit {
   public columnDefs = [
+    { 
+      headerName: 'Sr. no',
+      valueGetter: (args) => this._getIndexValue(args),
+      cellRenderer: 'nameRenderer',
+     cellRendererParams: {
+       onClick: this.open.bind(this),
+     },
+      pinned: 'left',
+      width:120
+     }
+     ,
     {
       headerName: 'Title',
-      field: 'title',
-      cellRenderer: 'nameRenderer',
-      cellRendererParams: {
-        onClick: this.open.bind(this),
-      },
-      pinned: 'left',
+      field: 'title'
+      // cellRenderer: 'nameRenderer',
+      // cellRendererParams: {
+      //   onClick: this.open.bind(this),
+      // },
+      // pinned: 'left',
     },
     {
       headerName: 'Sub Title',
@@ -45,6 +56,10 @@ export class BannerComponent implements OnInit {
       width: 80
     }
   ];
+
+  _getIndexValue(args: ValueGetterParams): any {
+    return args.node.rowIndex + 1;
+  } 
   public gridOptions: any;
   public info: string;
   private gridApi: any;

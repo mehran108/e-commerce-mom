@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTitles: string[] = [];
   expanded: boolean;
   nav_collapsed_open = false;
-  logoUrl = 'assets/img/unnamed.png';
+  logoUrl = 'assets/img/toysmall.png';
   public config: any = {};
   layoutSub: Subscription;
 
@@ -47,10 +47,10 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
         if (options) {
           if (options.bgColor) {
             if (options.bgColor === 'white') {
-              this.logoUrl = 'assets/img/unnamed.png';
+              this.logoUrl = 'assets/img/toysmall.png';
             }
             else {
-              this.logoUrl = 'assets/img/logo.png';
+              this.logoUrl = 'assets/img/toysmall.png';
             }
           }
 
@@ -77,16 +77,12 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.config = this.configService.templateConf;
     this.menuItems = ROUTES;
 
-
-
     if (this.config.layout.sidebar.backgroundColor === 'white') {
-      this.logoUrl = 'assets/img/unnamed.png';
+      this.logoUrl = 'assets/img/toysmall.png';
     }
     else {
-      this.logoUrl = 'assets/img/logo.png';
+      this.logoUrl = 'assets/img/toysmall.png';
     }
-
-
   }
 
   ngAfterViewInit() {

@@ -1,4 +1,4 @@
-import { AllCommunityModules } from '@ag-grid-community/all-modules';
+import { AllCommunityModules, ValueGetterParams } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,14 +16,21 @@ import { ConfigurationService } from 'services/configuration.service';
 })
 export class ProductComponent implements OnInit {
 
-  public columnDefs = [{
-    headerName: 'Product',
-    field: 'productName',
-    cellRenderer: 'nameRenderer',
-    cellRendererParams: {
-      onClick: this.open.bind(this),
+  public columnDefs = [
+    { 
+     headerName: 'Sr. no',
+     valueGetter: (args) => this._getIndexValue(args),
+     cellRenderer: 'nameRenderer',
+     cellRendererParams: {
+     onClick: this.open.bind(this),
     },
-    pinned: 'left',
+     pinned: 'left',
+     width:120
+    }
+    ,
+    {
+    headerName: 'Product',
+    field: 'productName'
   },
   {
     headerName: 'Product Price',
@@ -57,6 +64,9 @@ export class ProductComponent implements OnInit {
     width: 80
   }
   ];
+  _getIndexValue(args: ValueGetterParams): any {
+    return args.node.rowIndex + 1;
+  } 
   public gridOptions: any;
   public info: string;
   private gridApi: any;
