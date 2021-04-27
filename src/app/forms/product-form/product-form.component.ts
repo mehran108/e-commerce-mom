@@ -196,6 +196,7 @@ export class ProductFormComponent implements OnInit {
   }
   openConfirmation = (document) => {
     const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });
+    document.isActive = false;
     modalRef.componentInstance.header = 'Picture';
     modalRef.componentInstance.content = document;
     modalRef.result.then(res => {
