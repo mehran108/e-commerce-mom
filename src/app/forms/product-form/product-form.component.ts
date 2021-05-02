@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from '@ngx-gallery/core';
@@ -11,6 +11,8 @@ import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 import { NgxSpinnerService } from "ngx-spinner";
 
+
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -20,6 +22,8 @@ export class ProductFormComponent implements OnInit {
 
   @Input() title;
   @Input() content;
+  categories = new FormControl();
+  categoryList1: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   items: GalleryItem[];
   files = [];
   public fg: FormGroup;

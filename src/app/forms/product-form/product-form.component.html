@@ -48,20 +48,13 @@
                     placeholder="Description">
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
-                  <label for="category" class="label">Category</label>
-                  <select class="form-control" placeholder="Select Category" formControlName="categoryId"
-                    id="sub-category">
-                    <option value="null">Select Category</option>
-                    <option *ngFor="let category of categoryList" [value]="category.categoryId">
-                      {{category.categoryName}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="tags" class="label">Tags</label>
                   <input type="text" class="form-control" formControlName="tags" id="tags" placeholder="Tags">
                 </div>
+              
+              </div>
+              <div class="row">
+               
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="Brand" class="label">Brand</label>
                   <select class="form-control" placeholder="Select Brand" formControlName="brandId" id="sub-Brand">
@@ -69,6 +62,23 @@
                     <option *ngFor="let brand of brandList" [value]="brand.brandId">
                       {{brand.brandName}}</option>
                   </select>
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6 ">
+                  <label for="category" class="label">Category</label>
+                  <!-- <select class="form-control" placeholder="Select Category" formControlName="categoryId"
+                    id="sub-category" multiple>
+                    <option value="null">Select Category</option>
+                    <option *ngFor="let category of categoryList" [value]="category.categoryId">
+                      {{category.categoryName}}</option>
+                  </select> -->
+                  <ng-select   id="sub-category"
+                              [items]="categoryList" 
+                              bindLabel="categoryName" 
+                              bindValue="categoryId" 
+                              formControlName="categoryId"
+                              [multiple]="true"
+                              >
+                  </ng-select>
                 </div>
 
               </div>

@@ -33,7 +33,7 @@ import { ProductFormComponent } from './forms/product-form/product-form.componen
 import { CategoryFormComponent } from './forms/category-form/category-form.component';
 import { BannerFormComponent } from './forms/banner-form/banner-form.component';
 import { UserFormComponent } from './forms/user-form/user-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigurationService } from 'services/configuration.service';
 import { BrandComponent } from './brand/brand.component';
 import { BrandFormComponent } from './forms/brand-form/brand-form.component';
@@ -50,6 +50,8 @@ import { SliderFormComponent } from "./forms/slider-form/slider-form.component";
 import { BusinessInfoComponent } from './business-info/business-info.component';
 import { BusinessInfoFormComponent } from "./forms/business-info-form/business-info-form.component";
 import { NgxSpinnerModule } from "ngx-spinner";
+import { NgSelectModule } from '@ng-select/ng-select';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -105,7 +107,8 @@ export function createTranslateLoader(http: HttpClient) {
       apiKey: "YOUR KEY"
     }),
     PerfectScrollbarModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgSelectModule
   ],
   providers: [
     AuthService,

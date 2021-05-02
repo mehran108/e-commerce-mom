@@ -2,6 +2,10 @@
 @import "@ag-grid-community/all-modules/dist/styles/ag-grid.css";
 @import "@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
 @import "@ag-grid-community/all-modules/dist/styles/ag-theme-material.css";
+
+@import "~@ng-select/ng-select/themes/default.theme.css"; 
+/* @import "~@ng-select/ng-select/themes/material.theme.css"; */
+
 :host .fullScreen {
     z-index: 9 !important;
 }
