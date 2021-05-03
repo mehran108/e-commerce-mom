@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { FormGroup, FormBuilder, Validators,FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from '@ngx-gallery/core';
@@ -22,7 +22,7 @@ export class ProductFormComponent implements OnInit {
 
   @Input() title;
   @Input() content;
-  categories = new FormControl();
+  // categories = new FormControl();
   categoryList1: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   items: GalleryItem[];
   files = [];
@@ -130,7 +130,14 @@ export class ProductFormComponent implements OnInit {
 
   }
   onSelect = (file) => {
-
+  }
+  HandleChangeCategories=(categories)=>{
+    console.log({categories});
+    const list:any=[];
+    for(var i=0 ; i< categories.length;i++){
+      list.push(categories[i]['categoryId']);
+    }
+    console.log({list});
   }
   onSubmit() {
     const doc = this.documents.filter(document => !document.documentId);
