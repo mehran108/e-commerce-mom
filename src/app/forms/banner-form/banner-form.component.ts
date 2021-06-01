@@ -5,7 +5,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
-import { CategoryFormComponent } from '../category-form/category-form.component';
+// import { CategoryFormComponent } from '../category-form/category-form.component';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
