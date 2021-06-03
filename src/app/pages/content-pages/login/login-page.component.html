@@ -2,9 +2,9 @@
 <section id="login">
   <div class="container-fluid">
     <div class="row full-height-vh m-0">
-      <div class="col-md-8"></div>
-      <div class="col-4 d-flex align-items-center justify-content-center">
-        <div class="card">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 d-flex align-items-center justify-content-center">
+        <div class="card" >
           <div class="card-content">
             <div class="card-body login-img">
               <div class="row m-0">
@@ -21,57 +21,33 @@
                   <p class="card-text mb-3">
                     Welcome, please login to your account.
                   </p>
-                  <input type="text" class="form-control mb-3" placeholder="Username" />
-                  <input type="password" class="form-control mb-3" placeholder="Password" />
-                  <div class="d-flex justify-content-between mt-2">
-                    <div class="remember-me">
-                      <div class="custom-control custom-checkbox custom-control-inline mb-3">
-                        <input type="checkbox" id="customCheckboxInline1" name="customCheckboxInline1"
-                          class="custom-control-input" />
-                        <label class="custom-control-label" for="customCheckboxInline1">
-                          Remember Me
-                        </label>
-                      </div>
+                
+                  <form fxLayout="row wrap" [formGroup]="loginForm" style="margin-bottom: 10%;">
+                    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Email or Phone" [(ngModel)]="uEmail"  formControlName="uEmail"
+                          required>
+                          <!-- <mat-error *ngIf="loginForm.controls['uEmail'].invalid">Email or Phone is required</mat-error> -->
+                      </mat-form-field>
                     </div>
-                    <div class="forgot-password-option">
-                      <a [routerLink]="['/pages/forgotpassword']" class="text-decoration-none text-primary">Forgot
-                        Password ?</a>
+                    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Enter Password" type="password" [(ngModel)]="uPassword"  formControlName="uPassword" required>
+                        <!-- <mat-error *ngIf="loginForm.controls['uPassword'].invalid">Password is required</mat-error> -->
+                      </mat-form-field>
                     </div>
-                  </div>
-                  <div class="fg-actions d-flex justify-content-between">
-                    <div class="login-btn">
-                      <button class="btn btn-outline-primary">
-                        <a [routerLink]="['/pages/register']" class="text-decoration-none">Register</a>
-                      </button>
+                    <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                      <button class="btn-project" (click)="Login(loginForm)" mat-raised-button color="accent" type="submit">Log in</button>
                     </div>
-                    <div class="recover-pass">
-                      <button class="btn btn-primary">
-                        <a (click)="onSubmit()" class="text-decoration-none text-white">Login</a>
-                      </button>
-                    </div>
-                  </div>
-                  <!-- <hr class="m-0" />
-                  <div class="d-flex justify-content-between mt-3">
-                    <div class="option-login">
-                      <h6 class="text-decoration-none text-primary">
-                        Or Login With
-                      </h6>
-                    </div>
-                    <div class="social-login-options">
-                      <a class="btn btn-social-icon mr-2 btn-facebook">
-                        <span class="fa fa-facebook"></span>
-                      </a>
-                      <a class="btn btn-social-icon mr-2 btn-twitter">
-                        <span class="fa fa-twitter"></span>
-                      </a>
-                    </div>
-                  </div> -->
+                  </form>
+             
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="col-md-4"></div>
     </div>
   </div>
 </section>

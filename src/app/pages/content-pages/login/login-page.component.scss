@@ -1,9 +1,17 @@
 // Login Page
 
 #login {
-  background-image: url('../../../../assets/img/bg.jpg');
+   background-image: url('../../../../assets/img/blur1.jpg');
   background-size: 100%;
   background-repeat: no-repeat;
+  
+  //background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)) ,url('../../../../assets/img/bg.jpg');
+  
+  // -webkit-filter: blur(5px);
+  // -moz-filter: blur(5px);
+  // -o-filter: blur(5px);
+  // -ms-filter: blur(5px);
+  // filter: blur(5px);
 
   .login-img {
     padding: 0;
@@ -53,4 +61,15 @@
 }
 .br-10 {
   border-radius: 10px;
+}
+
+.btn-project {
+  background: green !important;
+  padding: 15px 60px !important;
+  color: #fff !important;
+  margin-left: 27%;
+  border: none; 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
 }

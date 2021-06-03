@@ -3,6 +3,7 @@
 // `ng build --env=prod` then `environment.prod.ts` will be used instead.
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 const url = `http://bakenbytes-001-site2.gtempurl.com/api`;
+const tokenurl = `http://bakenbytes-001-site3.gtempurl.com/api`;
 // const url = `http://192.168.10.9:5001/api`;
 export const environment = {
   production: false,
@@ -15,6 +16,7 @@ export const environment = {
   AppSlider: `${url}/Slider`,
   AppDocument: `${url}/Document`,
   AppValue: `${url}/Values`,
+  AppLogin: `${tokenurl}/token`,
   firebaseConfig: {
     apiKey: 'AIzaSyB9JuijGrW7ikudwKDo2VhGRxVwtkWiUUs',
     authDomain: 'angular-systems.firebaseapp.com',
