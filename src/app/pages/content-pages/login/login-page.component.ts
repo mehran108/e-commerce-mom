@@ -80,7 +80,7 @@ export class LoginPageComponent {
               const refreshToken = data.data.value.response["refresh_token"];
     
               this.setToken(accessToken,refreshToken);
-              this.router.navigate(['/dashboard1']);
+              this.router.navigate(['/dashboard/dashboard1']);
               //this.snackbar.open('Login Successfull', '×', { panelClass: ['success'], verticalPosition: 'top', duration: 5000 });
     
               //this.isLoggedIn = true;

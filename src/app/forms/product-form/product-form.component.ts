@@ -140,10 +140,27 @@ export class ProductFormComponent implements OnInit {
   }
   HandleChangeCategories=(categories)=>{
     console.log({categories});
-    
-    for(var i=0 ; i< categories.length;i++){
+    this.list=[];
+    for(var i=0 ; i< categories.length ; i++){
       this.list.push(categories[i]['categoryId']);
     }
+
+    // if(this.list.length > 1){
+    //   for(var i=0 ; i< categories.length;i++){
+    //     for(var j=0 ; j< this.list.length ; j++){
+    //       if(categories[i].categoryId !== this.list[j].categoryId){
+    //         console.log("equal");
+    //         this.list.push(categories[i]['categoryId']);
+    //       }
+    //       else{
+    //         console.log("equal");
+    //       }
+    //     }
+    //   }
+    // }
+    // if(this.list.length == 0){
+    //   this.list.push(categories[i]['categoryId']);
+    // }
     console.log(this.list);
   }
   onSubmit() {
