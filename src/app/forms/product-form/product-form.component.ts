@@ -115,6 +115,7 @@ export class ProductFormComponent implements OnInit {
       sale: [null],
       categoryId: [null],
       newPro: [null],
+      partNumber: [null],
       tags: [''],
       pictures: []
     });
