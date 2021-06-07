@@ -127,4 +127,9 @@ export class ConfigurationService {
     GetLookupByCode = (params) => {
         return this.http.get<any>(`${environment.AppValue}/GetLookupByCode`, { params })
     }
+
+      // For Login
+  LoginUser=(model)=>{
+    return this.http.post<any>(`${environment.AppLogin}/auth`, model)
+  }
 }

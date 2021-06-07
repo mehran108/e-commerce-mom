@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LayoutService } from '../services/layout.service';
 import { Subscription } from 'rxjs';
 import { ConfigService } from '../services/config.service';
+import { Router, ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-navbar",
@@ -20,7 +21,9 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public config: any = {};
 
-  constructor(public translate: TranslateService, private layoutService: LayoutService, private configService:ConfigService) {
+  constructor(public translate: TranslateService, private layoutService: LayoutService, private configService:ConfigService,
+    private router: Router,
+    private route: ActivatedRoute,) {
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|es|pt|de/) ? browserLang : "en");
 
@@ -39,6 +42,13 @@ export class NavbarComponent implements OnInit, AfterViewInit, OnDestroy {
     this.config = this.configService.templateConf;
   }
 
+  Logout(){
+
+    console.log("in logout");
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    this.router.navigate(['/pages/login']);
+  }
   ngAfterViewInit() {
     if(this.config.layout.dir) {
       setTimeout(() => {

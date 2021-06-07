@@ -32,6 +32,7 @@ export class ProductFormComponent implements OnInit {
   brandList = [];
   uploadPercent;
   documents = [];
+  list:any=[];
   productId;
   constructor(
     public fb: FormBuilder,
@@ -94,9 +95,14 @@ export class ProductFormComponent implements OnInit {
     lightboxRef.load(this.items);
   }
   initializeFormWithValues = (brand) => {
+    
     Object.keys(this.fg.controls).forEach(key => {
       this.fg.controls[key].setValue(brand[key]);
     })
+    console.log(this.fg.controls);
+    // var categories = this.fg.controls['categories'].value;
+    // categories=JSON.parse(categories);
+    this.fg.controls['categories'].setValue(JSON.parse(this.fg.controls['categories'].value));
   }
   public initializeForm = () => {
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'\&$#@!`";
@@ -113,11 +119,12 @@ export class ProductFormComponent implements OnInit {
       stock: [null],
       brandId: [null],
       sale: [null],
-      categoryId: [null],
+      categories: ['',Validators.required],
       newPro: [null],
       partNumber: [null],
       tags: [''],
-      pictures: []
+      pictures: [],
+      categoryId:[null]
     });
   }
   makeRandom(lengthOfCode: number, possible: string) {
@@ -134,15 +141,34 @@ export class ProductFormComponent implements OnInit {
   }
   HandleChangeCategories=(categories)=>{
     console.log({categories});
-    const list:any=[];
-    for(var i=0 ; i< categories.length;i++){
-      list.push(categories[i]['categoryId']);
+    this.list=[];
+    for(var i=0 ; i< categories.length ; i++){
+      this.list.push(categories[i]['categoryId']);
     }
-    console.log({list});
+
+    // if(this.list.length > 1){
+    //   for(var i=0 ; i< categories.length;i++){
+    //     for(var j=0 ; j< this.list.length ; j++){
+    //       if(categories[i].categoryId !== this.list[j].categoryId){
+    //         console.log("equal");
+    //         this.list.push(categories[i]['categoryId']);
+    //       }
+    //       else{
+    //         console.log("equal");
+    //       }
+    //     }
+    //   }
+    // }
+    // if(this.list.length == 0){
+    //   this.list.push(categories[i]['categoryId']);
+    // }
+    console.log(this.list);
   }
   onSubmit() {
     const doc = this.documents.filter(document => !document.documentId);
     this.fg.controls['pictures'].setValue(this.documents);
+    this.fg.controls['categories'].setValue(JSON.stringify(this.list) );
+    this.fg.controls['categoryId'].setValue( '1');
     const model = {
       ...this.fg.value
     };

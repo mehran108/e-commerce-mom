@@ -3,6 +3,8 @@
 @import "@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css";
 @import "@ag-grid-community/all-modules/dist/styles/ag-theme-material.css";
 
+@import '../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
 @import "~@ng-select/ng-select/themes/default.theme.css"; 
 /* @import "~@ng-select/ng-select/themes/material.theme.css"; */
 

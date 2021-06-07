@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
-import { FormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContentPagesRoutingModule } from "./content-pages-routing.module";
 
 import { ComingSoonPageComponent } from "./coming-soon/coming-soon-page.component";
@@ -11,13 +10,20 @@ import { LockScreenPageComponent } from "./lock-screen/lock-screen-page.componen
 import { LoginPageComponent } from "./login/login-page.component";
 import { MaintenancePageComponent } from "./maintenance/maintenance-page.component";
 import { RegisterPageComponent } from "./register/register-page.component";
-
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     imports: [
         CommonModule,
         ContentPagesRoutingModule,
-        FormsModule        
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatSnackBarModule,
+        MatCardModule
+            
     ],
     declarations: [
         ComingSoonPageComponent,

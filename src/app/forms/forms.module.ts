@@ -20,7 +20,7 @@ import { InputsComponent } from './elements/inputs/inputs.component';
 import { InputGroupsComponent } from './elements/input-groups/input-groups.component';
 import { InputGridComponent } from './elements/input-grid/input-grid.component';
 import { ArchwizardComponent } from './archwizard/archwizard.component';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerModule } from "ngx-spinner";
 import { NgSelectModule } from '@ng-select/ng-select';
 
 
@@ -36,7 +36,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         CustomFormsModule,
         MatchHeightModule,
         NgbModule,
-        NgxSpinnerService,
+        NgxSpinnerModule,
         NgSelectModule
         
     ],

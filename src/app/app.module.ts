@@ -51,6 +51,9 @@ import { BusinessInfoComponent } from './business-info/business-info.component';
 import { BusinessInfoFormComponent } from "./forms/business-info-form/business-info-form.component";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
+// import { MatFormFieldModule } from "@angular/material";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -108,7 +111,10 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     PerfectScrollbarModule,
     NgxSpinnerModule,
-    NgSelectModule
+    NgSelectModule,
+    MatSnackBarModule,
+    MatCardModule
+    // MatFormFieldModule
   ],
   providers: [
     AuthService,
