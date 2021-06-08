@@ -113,7 +113,7 @@ export class ConfigurationService {
         return this.http.get<any>(`${environment.AppOrder}/Get`, { params })
     }
     GetOrderList = (params) => {
-        return this.http.get<any>(`${environment.AppOrder}/Get`, { params })
+        return this.http.get<any>(`${environment.AppOrder}/GetList`, { params })
     }
     ActivateOrder = (model) => {
         return this.http.put<any>(`${environment.AppOrder}/Activate`, model)

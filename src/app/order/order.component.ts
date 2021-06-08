@@ -25,7 +25,7 @@ export class OrderComponent implements OnInit {
      ,
      {
       headerName: 'Order Code',
-      field: 'productCode',
+      field: 'orderTrackingID',
     },
     {
       headerName: 'Total Price',
@@ -51,18 +51,18 @@ export class OrderComponent implements OnInit {
       headerName: 'S_R Address',
       field: 'shipperAddress'
     },
-    {
-      headerName: 'B_R Name',
-      field: 'billRecieverName'
-    },
-    {
-      headerName: 'B_R Phone',
-      field: 'billPersonPhone'
-    },
-    {
-      headerName: 'B_R Address',
-      field: 'billingAddress'
-    },
+    // {
+    //   headerName: 'B_R Name',
+    //   field: 'billRecieverName'
+    // },
+    // {
+    //   headerName: 'B_R Phone',
+    //   field: 'billPersonPhone'
+    // },
+    // {
+    //   headerName: 'B_R Address',
+    //   field: 'billingAddress'
+    // },
     {
       headerName: 'Status',
       field: 'orderStatus'
