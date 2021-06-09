@@ -37,16 +37,16 @@
                   <input type="number" class="form-control" formControlName="discount" id="discount"
                     placeholder="Discount %">
                 </div>
-                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                <div class="col-sm-6 col-xs-12 col-lg-6 col-md-3 form-group">
                   <label for="shortDetails" class="label">Short Details</label>
                   <input type="text" class="form-control" formControlName="shortDetails" id="shortDetails"
                     placeholder="Short Details">
                 </div>
-                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                <!-- <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="description" class="label">Description</label>
                   <input type="text" class="form-control" formControlName="description" id="description"
                     placeholder="Description">
-                </div>
+                </div> -->
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="tags" class="label">Tags</label>
                   <input type="text" class="form-control" formControlName="tags" id="tags" placeholder="Tags">
@@ -55,7 +55,7 @@
               </div>
               <div class="row">
                
-                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                <div class="col-sm-6 col-xs-12 col-lg-4 col-md-4 form-group">
                   <label for="Brand" class="label">Brand</label>
                   <select class="form-control" placeholder="Select Brand" formControlName="brandId" id="sub-Brand">
                     <option value="null">Select Brand</option>
@@ -63,7 +63,7 @@
                       {{brand.brandName}}</option>
                   </select>
                 </div>
-                <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6 ">
+                <div class="col-sm-6 col-xs-12 col-lg-8 col-md-8 ">
                   <label for="category" class="label">Category</label>
                   <!-- <select class="form-control" placeholder="Select Category" formControlName="categoryId"
                     id="sub-category" multiple>
@@ -81,9 +81,17 @@
                               >
                   </ng-select>
                 </div>
+             </div>
+             <div class="row mt-2">
+              <h5 for="description" class="label ml-3"><b>Description</b></h5>
 
-              </div>
-              <div class="row">
+                                <div class="cotainer col-11">
+                                    <angular-editor [placeholder]="'Enter text here...'" formControlName="description" [config]="config"></angular-editor>
+                                </div>
+                                <br>
+                            </div>
+             
+              <div class="row mt-2">
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <input type="checkbox" formControlName="stock" id="stock">
                   <label for="stock" class="checkbox-label label">Stock</label>

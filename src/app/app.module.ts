@@ -53,6 +53,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { AngularEditorModule } from "@kolkov/angular-editor";
 // import { MatFormFieldModule } from "@angular/material";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -113,7 +114,8 @@ export function createTranslateLoader(http: HttpClient) {
     NgxSpinnerModule,
     NgSelectModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    AngularEditorModule
     // MatFormFieldModule
   ],
   providers: [
