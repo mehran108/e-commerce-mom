@@ -1,5 +1,6 @@
 // const url = `https://localhost:44326/api`;
 const url = `http://bakenbytes-001-site2.gtempurl.com/api`;
+const tokenurl = `http://bakenbytes-001-site3.gtempurl.com/api`;
 export const environment = {
   production: true,
   AppCategory: `${url}/Category`,
@@ -11,6 +12,7 @@ export const environment = {
   AppSlider: `${url}/Slider`,
   AppDocument: `${url}/Document`,
   AppValue: `${url}/Values`,
+  AppLogin: `${tokenurl}/token`,
   firebaseConfig: {
     // apiKey: 'AIzaSyAw_2dKlgu1aZK1PrBeC0124L870zmK_xs',
     // authDomain: 'thedairybutchers.firebaseapp.com',

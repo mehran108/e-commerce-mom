@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,9 @@ import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { ViewChild } from '@angular/core';
 
+//@ViewChild('myInput',{static:false}) myInputVariable: ElementRef
 
 
 @Component({
@@ -19,10 +21,13 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
+
 export class ProductFormComponent implements OnInit {
 
   @Input() title;
   @Input() content;
+  @ViewChild('myInput',{static:true}) myInputVariable: ElementRef;
+
   // categories = new FormControl();
   categoryList1: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
   items: GalleryItem[];
@@ -46,17 +51,11 @@ export class ProductFormComponent implements OnInit {
     defaultFontName: 'Arial',
     toolbarHiddenButtons: [
       ['justifyLeft','justifyCenter','justifyRight','justifyFull'],
-
-      ['justifyLeft','justifyCenter','justifyRight','justifyFull'],
       ['indent','outdent'],
       ['backgroundColor'],
       ['insertImage','insertVideo'],
       ['horizontalLine','clearFormatting'],
       ['HTML Code']
-
-
-
-
       ],
       
        
@@ -76,7 +75,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    console.log(this.myInputVariable);
     
     this.configService.GetCategoryList({}).subscribe(res => {
       //console.log("res",res);
@@ -110,8 +109,6 @@ export class ProductFormComponent implements OnInit {
 
     // Creat gallery items
     this.items = this.documents.map(item => new ImageItem({ src: item.url, thumb: item.url }));
-
-
     /** Lightbox Example */
 
     // Get a lightbox gallery ref
@@ -165,11 +162,7 @@ export class ProductFormComponent implements OnInit {
     }
     return text;
   }
-  onRemove = (file) => {
-
-  }
-  onSelect = (file) => {
-  }
+ 
   HandleChangeCategories=(categories)=>{
     console.log({categories});
     this.list=[];
@@ -221,9 +214,11 @@ export class ProductFormComponent implements OnInit {
       this.configService.AddProduct(model).subscribe(res => {
         if (res) {
           this.toastr.success('Product added successfully.', 'Product');
+          this.resetForms();
+        
           // this.activeModal.close(true);
         } else {
-          this.toastr.info('Something went wrong Product not added successfully.', 'Product');
+          this.toastr.info('Error!!! Product not added successfully.', 'Product');
           // this.activeModal.close();
         }
       }, error => {
@@ -231,6 +226,12 @@ export class ProductFormComponent implements OnInit {
         // this.activeModal.close();
       })
     }
+  }
+  resetForms(){
+    this.fg.reset();
+    this.ngOnInit();
+    this.documents=[];
+    this.myInputVariable.nativeElement.value = "";
   }
   uploadFile(event) {
 
@@ -240,7 +241,12 @@ export class ProductFormComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.uploadFilesToFirebase(event.target.files[i]);
       }
+
     }
+    // console.log(this.myInputVariable.nativeElement.value);
+    // console.log(this.myInputVariable.nativeElement.files);
+
+
   }
   public uploadFilesToFirebase = (file: File) => {
     const filePath = `Uploads/${file.name}`;

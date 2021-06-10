@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 const url = `http://bakenbytes-001-site2.gtempurl.com/api`;
 const tokenurl = `http://bakenbytes-001-site3.gtempurl.com/api`;
-// const url = `http://192.168.10.9:5001/api`;
+// const url = `http://192.168.10.7:5001/api`;
 export const environment = {
   production: false,
   AppCategory: `${url}/Category`,

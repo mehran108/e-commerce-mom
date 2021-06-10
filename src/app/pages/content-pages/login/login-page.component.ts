@@ -15,8 +15,8 @@ export class LoginPageComponent {
 
     // @ViewChild('f', {static: false}) loginForm: NgForm;
 
-    username:any='';
-    password:any='';
+    uEmail:any='';
+    uPassword:any='';
     public loginForm: FormGroup;
 
     constructor(
