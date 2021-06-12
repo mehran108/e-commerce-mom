@@ -79,15 +79,7 @@ export class ProductFormComponent implements OnInit {
     
     
     this.configService.GetCategoryList({}).subscribe(res => {
-<<<<<<< HEAD
       this.categoryList = res.filter(items=>items.parentId>0);
-=======
-      //console.log("res",res);
-
-      this.categoryList = res.filter(items=>items.parentId>0);
-     // console.log("cat",this.categoryList)
-
->>>>>>> 5f43d2b67b1740564332d47279c2df92dec635c1
     });
     this.configService.GetBrandList({}).subscribe(res => {
       this.brandList = res;
