@@ -51,7 +51,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         InputsComponent,
         InputGroupsComponent,
         InputGridComponent,
-        ArchwizardComponent
+        ArchwizardComponent,
     ]
 
 })

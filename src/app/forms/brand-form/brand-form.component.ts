@@ -31,6 +31,7 @@ export class BrandFormComponent implements OnInit {
       this.isEdit = true;
       this.initializeFormWithValues(this.content.rowData);
     }
+     console.log(this.content)
   }
   initializeFormWithValues = (brand) => {
     Object.keys(this.fg.controls).forEach(key => {

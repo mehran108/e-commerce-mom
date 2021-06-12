@@ -1,0 +1,54 @@
+<section id="basic-form-layouts">
+    <div class="row text-left">
+        <div class="card">
+            <div class="card-header pb-2">
+                <h4 class="card-title text-center" id="basic-layout-form">Order Details</h4>
+                <p class="mb-0"></p>
+            </div>
+            <div class="card-content">
+                <div class="px-3">
+                    <form>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <table class="table table-responsive-md text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Product Name</th>
+                                            <th>Product Code</th>
+                                            <th>Sale Price</th>
+                                            <th>Discount</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of orderList;let i=index">
+                                            <td>{{i+1}}</td>
+                                            <td>{{item.productName}}</td>
+                                            <td>{{item.productCode}}</td>
+                                            <td>{{item.productPrice}}</td>
+                                            <td>{{item.productDiscount==null?0 :item.productDiscount }} %</td>
+                                            <td>{{item.productQuantity}}</td>
+
+
+
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="form-actions text-right">
+                            <button (click)="activeModal.close()" type="button" class="btn btn-raised btn-raised btn-primary">
+                            <i class="ft-check"></i> OK
+                             </button>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

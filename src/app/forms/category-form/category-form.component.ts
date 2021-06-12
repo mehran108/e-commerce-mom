@@ -64,7 +64,7 @@ export class CategoryFormComponent implements OnInit {
   }
   ngOnInit() {
     this.configService.GetCategoryList({}).subscribe(res => {
-      this.categoryList = res;
+      this.categoryList = res.filter(items=>items.parentId==0);
     });
     if (this.content && this.content.rowData) {
       this.isEdit = true;

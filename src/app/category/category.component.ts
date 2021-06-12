@@ -1,3 +1,4 @@
+import { OrderDetailsComponent } from '../forms/order-details/order-details.component';
 import { Component, OnInit } from '@angular/core';
 import { AllCommunityModules, ValueGetterParams } from '@ag-grid-community/all-modules';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -98,6 +99,12 @@ export class CategoryComponent implements OnInit {
         this.getCategoryList();
       }
     });
+  }
+
+  openOrderDetails(content) {
+    const modalRef = this.modalService.open(OrderDetailsComponent, { size: 'lg' });
+    modalRef.componentInstance.content = content;
+  
   }
   openRemoveDialog(row: any): void {
     const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });

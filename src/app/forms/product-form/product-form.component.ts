@@ -51,7 +51,7 @@ export class ProductFormComponent implements OnInit {
     
 
     this.configService.GetCategoryList({}).subscribe(res => {
-      this.categoryList = res;
+      this.categoryList = res.filter(items=>items.parentId>0);
     });
     this.configService.GetBrandList({}).subscribe(res => {
       this.brandList = res;
@@ -60,10 +60,11 @@ export class ProductFormComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params && params.id) {
         this.productId = atob(params.id);
+        //console.log("productID",this.productId);
         this.getProduct();
       }
     });
-    this.loadGallery();
+    //this.loadGallery();
   }
   getProduct() {
     this.configService.GetProduct({ productId: this.productId }).subscribe(res => {
@@ -99,10 +100,12 @@ export class ProductFormComponent implements OnInit {
     Object.keys(this.fg.controls).forEach(key => {
       this.fg.controls[key].setValue(brand[key]);
     })
-    console.log(this.fg.controls);
+    //console.log(this.fg.controls);
     // var categories = this.fg.controls['categories'].value;
     // categories=JSON.parse(categories);
     this.fg.controls['categories'].setValue(JSON.parse(this.fg.controls['categories'].value));
+    this.list=this.fg.controls['categories'].value;
+   // console.log("this.list",this.list);
   }
   public initializeForm = () => {
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'\&$#@!`";
@@ -173,6 +176,8 @@ export class ProductFormComponent implements OnInit {
     };
     model.stock = model.stock ? 1 : 0;
     if (this.isEdit) {
+      //console.log("JSON",JSON.stringify(this.list));
+
       this.configService.UpdateProduct(model).subscribe(res => {
         if (res) {
           this.toastr.success('Product updated successfully.', 'Product');
@@ -185,6 +190,9 @@ export class ProductFormComponent implements OnInit {
         this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
         // this.activeModal.close();
       });
+      this.fg.controls['categories'].setValue(this.list);
+
+      console.log("Document",this.documents);
     } else {
       this.configService.AddProduct(model).subscribe(res => {
         if (res) {
@@ -197,7 +205,9 @@ export class ProductFormComponent implements OnInit {
       }, error => {
         this.toastr.info('Something went wrong Product not added successfully.', 'Product');
         // this.activeModal.close();
-      })
+      });
+      console.log("Document",this.documents);
+
     }
   }
   uploadFile(event) {

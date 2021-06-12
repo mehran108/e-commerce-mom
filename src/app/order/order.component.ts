@@ -1,3 +1,4 @@
+import { OrderDetailsComponent } from './../forms/order-details/order-details.component';
 import { AllCommunityModules, ValueGetterParams } from '@ag-grid-community/all-modules';
 import { Component, OnInit } from '@angular/core';
 import { ButtonRendererComponent } from 'common/button-renderer.component';
@@ -117,7 +118,9 @@ export class OrderComponent implements OnInit {
       }
     };
   }
-  open() {
+  open(content) {
+    const modalRef = this.modalService.open(OrderDetailsComponent, { size: 'lg' });
+    modalRef.componentInstance.content = content;
     // const modalRef = this.modalService.open(Order, { size: 'sm' })
     // modalRef.componentInstance.content = content;
     // modalRef.result.then(res => {
