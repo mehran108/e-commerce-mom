@@ -22,6 +22,7 @@ import { InputGridComponent } from './elements/input-grid/input-grid.component';
 import { ArchwizardComponent } from './archwizard/archwizard.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 
@@ -37,7 +38,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         MatchHeightModule,
         NgbModule,
         NgxSpinnerModule,
-        NgSelectModule
+        NgSelectModule,
+        AngularEditorModule
         
     ],
     declarations: [

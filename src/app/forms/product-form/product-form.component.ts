@@ -10,6 +10,7 @@ import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confir
 import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 
 
@@ -34,6 +35,33 @@ export class ProductFormComponent implements OnInit {
   documents = [];
   list:any=[];
   productId;
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+
+      ['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+      ['indent','outdent'],
+      ['backgroundColor'],
+      ['insertImage','insertVideo'],
+      ['horizontalLine','clearFormatting'],
+      ['HTML Code']
+
+
+
+
+      ],
+      
+       
+  
+  };
   constructor(
     public fb: FormBuilder,
     // public activeModal: NgbActiveModal,
@@ -49,9 +77,17 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {
     
-
+    
     this.configService.GetCategoryList({}).subscribe(res => {
+<<<<<<< HEAD
       this.categoryList = res.filter(items=>items.parentId>0);
+=======
+      //console.log("res",res);
+
+      this.categoryList = res.filter(items=>items.parentId>0);
+     // console.log("cat",this.categoryList)
+
+>>>>>>> 5f43d2b67b1740564332d47279c2df92dec635c1
     });
     this.configService.GetBrandList({}).subscribe(res => {
       this.brandList = res;
