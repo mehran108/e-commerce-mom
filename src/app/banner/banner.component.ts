@@ -95,7 +95,7 @@ export class BannerComponent implements OnInit {
       }
     };
   }
-  open(content) {
+  open(content?) {
     const modalRef = this.modalService.open(BannerFormComponent, { size: 'sm' })
     modalRef.componentInstance.content = content;
     modalRef.result.then(res => {

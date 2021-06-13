@@ -53,7 +53,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
         InputsComponent,
         InputGroupsComponent,
         InputGridComponent,
-        ArchwizardComponent
+        ArchwizardComponent,
     ]
 
 })

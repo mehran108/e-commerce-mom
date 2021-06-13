@@ -88,7 +88,7 @@ export class BrandComponent implements OnInit {
       }
     };
   }
-  open(content) {
+  open(content?) {
     const modalRef = this.modalService.open(BrandFormComponent, { size: 'sm' })
     modalRef.componentInstance.content = content;
     modalRef.result.then(res => {

@@ -128,6 +128,11 @@ export class ConfigurationService {
         return this.http.get<any>(`${environment.AppValue}/GetLookupByCode`, { params })
     }
 
+    //OrderDetails Crud
+    GetOrderDetails = (params) => {
+        return this.http.get<any>(`${environment.AppOrderDetials}/GetList`, { params })
+    }
+
       // For Login
   LoginUser=(model)=>{
     return this.http.post<any>(`${environment.AppLogin}/auth`, model)

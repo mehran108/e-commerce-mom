@@ -8,6 +8,7 @@ export const environment = {
   AppBanner: `${url}/Banner`,
   AppProduct: `${url}/Product`,
   AppOrder: `${url}/Order`,
+  AppOrderDetials: `${url}/OrderDetails`,
   AppUser: `${url}/User`,
   AppSlider: `${url}/Slider`,
   AppDocument: `${url}/Document`,

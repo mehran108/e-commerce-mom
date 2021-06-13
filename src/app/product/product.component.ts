@@ -106,7 +106,7 @@ export class ProductComponent implements OnInit {
       }
     };
   }
-  open(content) {
+  open(content?) {
     // const modalRef = this.modalService.open(ProductFormComponent, { size: 'lg' });
     // modalRef.componentInstance.content = content;
     // modalRef.result.then(res => {

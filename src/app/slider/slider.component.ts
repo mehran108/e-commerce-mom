@@ -94,7 +94,7 @@ export class SliderComponent implements OnInit {
       }
     };
   }
-  open(content) {
+  open(content?) {
     const modalRef = this.modalService.open(SliderFormComponent, { size: 'sm' })
     modalRef.componentInstance.content = content;
     modalRef.result.then(res => {

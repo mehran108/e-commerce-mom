@@ -1,3 +1,4 @@
+import { OrderDetailsComponent } from './forms/order-details/order-details.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -84,7 +85,8 @@ export function createTranslateLoader(http: HttpClient) {
     SliderFormComponent,
     SliderComponent,
     BusinessInfoComponent,
-    BusinessInfoFormComponent
+    BusinessInfoFormComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -138,7 +140,8 @@ export function createTranslateLoader(http: HttpClient) {
     BrandFormComponent,
     UserFormComponent,
     SliderFormComponent,
-    BusinessInfoFormComponent
+    BusinessInfoFormComponent,
+    OrderDetailsComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

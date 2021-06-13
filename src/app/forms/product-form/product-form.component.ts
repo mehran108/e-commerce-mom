@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from '@ngx-gallery/core';
 import { Lightbox } from '@ngx-gallery/lightbox';
@@ -70,19 +70,16 @@ export class ProductFormComponent implements OnInit {
     public gallery: Gallery, public lightbox: Lightbox,
     public route: ActivatedRoute,
     private modalService: NgbModal,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router:Router
   ) {
   }
 
   ngOnInit() {
     console.log(this.myInputVariable);
-    
+    //this.resetForms("ngOnInit");
     this.configService.GetCategoryList({}).subscribe(res => {
-      //console.log("res",res);
-
       this.categoryList = res.filter(items=>items.parentId>0);
-     // console.log("cat",this.categoryList)
-
     });
     this.configService.GetBrandList({}).subscribe(res => {
       this.brandList = res;
@@ -91,10 +88,11 @@ export class ProductFormComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params && params.id) {
         this.productId = atob(params.id);
+        //console.log("productID",this.productId);
         this.getProduct();
       }
     });
-    this.loadGallery();
+    //this.loadGallery();
   }
   getProduct() {
     this.configService.GetProduct({ productId: this.productId }).subscribe(res => {
@@ -128,10 +126,12 @@ export class ProductFormComponent implements OnInit {
     Object.keys(this.fg.controls).forEach(key => {
       this.fg.controls[key].setValue(brand[key]);
     })
-    console.log(this.fg.controls);
+    //console.log(this.fg.controls);
     // var categories = this.fg.controls['categories'].value;
     // categories=JSON.parse(categories);
     this.fg.controls['categories'].setValue(JSON.parse(this.fg.controls['categories'].value));
+    this.list=this.fg.controls['categories'].value;
+   // console.log("this.list",this.list);
   }
   public initializeForm = () => {
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'\&$#@!`";
@@ -198,9 +198,13 @@ export class ProductFormComponent implements OnInit {
     };
     model.stock = model.stock ? 1 : 0;
     if (this.isEdit) {
+      //console.log("JSON",JSON.stringify(this.list));
+
       this.configService.UpdateProduct(model).subscribe(res => {
         if (res) {
           this.toastr.success('Product updated successfully.', 'Product');
+         // this.resetForms("Add");
+          this.router.navigate(["product"])
           // this.activeModal.close(true);
         } else {
           this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
@@ -210,11 +214,16 @@ export class ProductFormComponent implements OnInit {
         this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
         // this.activeModal.close();
       });
+      this.fg.controls['categories'].setValue(this.list);
+
+      console.log("Document",this.documents);
+
+
     } else {
       this.configService.AddProduct(model).subscribe(res => {
         if (res) {
           this.toastr.success('Product added successfully.', 'Product');
-          this.resetForms();
+          this.resetForms("Add");
         
           // this.activeModal.close(true);
         } else {
@@ -224,12 +233,16 @@ export class ProductFormComponent implements OnInit {
       }, error => {
         this.toastr.info('Something went wrong Product not added successfully.', 'Product');
         // this.activeModal.close();
-      })
+      });
+      console.log("Document",this.documents);
+
     }
   }
-  resetForms(){
+  resetForms(functionname:any){
     this.fg.reset();
+    if(functionname=="Add"){
     this.ngOnInit();
+    }
     this.documents=[];
     this.myInputVariable.nativeElement.value = "";
   }
