@@ -2,7 +2,7 @@
   <div class="row text-left">
     <div class="card">
       <div class="card-header pb-2">
-        <h4 class="card-title" id="basic-layout-form">Category</h4>
+        <h4 class="card-title" id="basic-layout-form">Model</h4>
         <p class="mb-0"></p>
       </div>
       <div class="card-content">
@@ -10,22 +10,14 @@
           <form [formGroup]="fg">
             <div class="form-body">
               <div class="form-group">
-                <label for="brand-name" class="label">Brand Name</label>
-                <input type="text" class="form-control" formControlName="brandName" id="brand-name"
-                  placeholder="Brand Name">
+                <label for="model-name" class="label">Model Name</label>
+                <input type="text" class="form-control" formControlName="modelName" id="model-name"
+                  placeholder="Model Name">
               </div>
               <div class="form-group">
-                <label for="brand-description" class="label">Brand Description</label>
-                <input type="text" class="form-control" formControlName="description" id="brand-description"
-                  placeholder="Brand Description">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-xs-12 col-lg-12 col-md-12 form-group">
-                <div class="form-group">
-                  <label>Select Image (2000 x 2000)</label>
-                  <input multiple type="file" (change)="uploadFile($event)" class="form-control-file" id="banner-image">
-                </div>
+                <label for="model-description" class="label">Model Description</label>
+                <input type="text" class="form-control" formControlName="description" id="model-description"
+                  placeholder="Model Description">
               </div>
             </div>
             <div class="form-actions">

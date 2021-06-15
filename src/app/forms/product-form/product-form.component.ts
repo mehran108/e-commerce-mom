@@ -32,6 +32,10 @@ export class ProductFormComponent implements OnInit {
   brandList = [];
   uploadPercent;
   documents = [];
+  makeList = [];
+  modelList = [];
+  engineList = [];
+  typeList = [];
   list:any=[];
   productId;
   constructor(
@@ -55,6 +59,18 @@ export class ProductFormComponent implements OnInit {
     });
     this.configService.GetBrandList({}).subscribe(res => {
       this.brandList = res;
+    });
+    this.configService.GetMakeList({}).subscribe(res => {
+      this.makeList = res;
+    });
+    this.configService.GetModelList({}).subscribe(res => {
+      this.modelList = res;
+    });
+    this.configService.GetEngineList({}).subscribe(res => {
+      this.engineList = res;
+    });
+    this.configService.GetTypeList({}).subscribe(res => {
+      this.typeList = res;
     });
     this.initializeForm();
     this.route.queryParams.subscribe(params => {
@@ -124,7 +140,11 @@ export class ProductFormComponent implements OnInit {
       partNumber: [null],
       tags: [''],
       pictures: [],
-      categoryId:[null]
+      categoryId:[null],
+      makeId:[null],
+      modelId:[null],
+      engineId:[null],
+      typeId:[null],
     });
   }
   makeRandom(lengthOfCode: number, possible: string) {

@@ -55,7 +55,8 @@
               <div class="row">
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="tags" class="label">Part Number</label>
-                  <input type="text" class="form-control" formControlName="partNumber" id="tags" placeholder="Part Number">
+                  <input type="text" class="form-control" formControlName="partNumber" id="tags"
+                    placeholder="Part Number">
                 </div>
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
                   <label for="Brand" class="label">Brand</label>
@@ -65,22 +66,43 @@
                       {{brand.brandName}}</option>
                   </select>
                 </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="Make" class="label">Make</label>
+                  <select class="form-control" placeholder="Select Make" formControlName="makeId" id="sub-Make">
+                    <option value="null">Select Make</option>
+                    <option *ngFor="let make of makeList" [value]="make.makeId">
+                      {{make.makeName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="Model" class="label">Model</label>
+                  <select class="form-control" placeholder="Select Model" formControlName="modelId" id="sub-Model">
+                    <option value="null">Select Model</option>
+                    <option *ngFor="let model of modelList" [value]="model.modelId">
+                      {{model.modelName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="Engine" class="label">Engine</label>
+                  <select class="form-control" placeholder="Select Engine" formControlName="engineId" id="sub-Engine">
+                    <option value="null">Select Engine</option>
+                    <option *ngFor="let engine of engineList" [value]="engine.engineId">
+                      {{engine.engineName}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="Type" class="label">Type</label>
+                  <select class="form-control" placeholder="Select Type" formControlName="typeId" id="sub-Type">
+                    <option value="null">Select Type</option>
+                    <option *ngFor="let type of typeList" [value]="type.typeId">
+                      {{type.typeName}}</option>
+                  </select>
+                </div>
                 <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6 ">
                   <label for="category" class="label">Category</label>
-                  <!-- <select class="form-control" placeholder="Select Category" formControlName="categoryId"
-                    id="sub-category" multiple>
-                    <option value="null">Select Category</option>
-                    <option *ngFor="let category of categoryList" [value]="category.categoryId">
-                      {{category.categoryName}}</option>
-                  </select> -->
-                  <ng-select   id="sub-category"
-                              [items]="categoryList" 
-                              bindLabel="categoryName" 
-                              bindValue="categoryId" 
-                              formControlName="categories"
-                              [multiple]="true"
-                              (change)="HandleChangeCategories($event)"
-                              >
+
+                  <ng-select id="sub-category" [items]="categoryList" bindLabel="categoryName" bindValue="categoryId"
+                    formControlName="categories" [multiple]="true" (change)="HandleChangeCategories($event)">
                   </ng-select>
                 </div>
 
@@ -113,7 +135,7 @@
               <div class="row container" gallerize>
                 <div *ngFor="let img of documents" class="col-md-4">
                   <img style="width: 100%" [src]="img.url">
-                  <span (click) = "openConfirmation(img)" class="material-icons">delete</span>
+                  <span (click)="openConfirmation(img)" class="material-icons">delete</span>
 
                 </div>
               </div>
@@ -133,4 +155,6 @@
   </div>
 </section>
 
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "default" color = "#e3ad4e" type = "cube-transition" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="default" color="#e3ad4e" type="cube-transition" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>

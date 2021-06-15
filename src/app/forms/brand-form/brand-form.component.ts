@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs/operators';
 import { ConfigurationService } from 'services/configuration.service';
 
 @Component({
@@ -17,12 +20,15 @@ export class BrandFormComponent implements OnInit {
     public fb: FormBuilder,
     public activeModal: NgbActiveModal,
     public configService: ConfigurationService,
-    public toastr: ToastrService
+    public toastr: ToastrService,
+    private storage: AngularFireStorage,
+    public spinner: NgxSpinnerService
   ) {
     this.fg = this.fb.group({
       brandId: [0],
       brandName: [''],
       description: [''],
+      imageUrl: [''],
       isActive: [true]
     })
   }
@@ -69,5 +75,29 @@ export class BrandFormComponent implements OnInit {
       })
     }
   }
+  uploadFile(event) {
 
+    if (event && event.target.files.length > 0) {
+      this.spinner.show();
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.uploadFilesToFirebase(event.target.files[i]);
+      }
+    }
+  }
+  public uploadFilesToFirebase = (file: File) => {
+    const filePath = `Uploads/${file.name}`;
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, file);
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+      finalize(() => {
+        fileRef.getDownloadURL().subscribe(res => {
+          this.fg.controls['imageUrl'].setValue(res);
+          this.spinner.hide();
+        });
+      })
+    )
+      .subscribe();
+  }
 }

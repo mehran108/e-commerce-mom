@@ -41,6 +41,74 @@ export class ConfigurationService {
     ActivateBrand = (model) => {
         return this.http.put<any>(`${environment.AppBrand}/Activate`, model)
     }
+    // Brand CRUD
+
+    AddMake = (model) => {
+        return this.http.post<any>(`${environment.AppMake}/Add`, model)
+    }
+    UpdateMake = (model) => {
+        return this.http.put<any>(`${environment.AppMake}/Update`, model)
+    }
+    GetMake = (params) => {
+        return this.http.get<any>(`${environment.AppMake}/Get`, { params })
+    }
+    GetMakeList = (params) => {
+        return this.http.get<any>(`${environment.AppMake}/GetList`, { params })
+    }
+    ActivateMake = (model) => {
+        return this.http.put<any>(`${environment.AppMake}/Activate`, model)
+    }
+    // Model CRUD
+
+    AddModel = (model) => {
+        return this.http.post<any>(`${environment.AppModel}/Add`, model)
+    }
+    UpdateModel = (model) => {
+        return this.http.put<any>(`${environment.AppModel}/Update`, model)
+    }
+    GetModel = (params) => {
+        return this.http.get<any>(`${environment.AppModel}/Get`, { params })
+    }
+    GetModelList = (params) => {
+        return this.http.get<any>(`${environment.AppModel}/GetList`, { params })
+    }
+    ActivateModel = (model) => {
+        return this.http.put<any>(`${environment.AppModel}/Activate`, model)
+    }
+    // Type CRUD
+
+    AddType = (model) => {
+        return this.http.post<any>(`${environment.AppType}/Add`, model)
+    }
+    UpdateType = (model) => {
+        return this.http.put<any>(`${environment.AppType}/Update`, model)
+    }
+    GetType = (params) => {
+        return this.http.get<any>(`${environment.AppType}/Get`, { params })
+    }
+    GetTypeList = (params) => {
+        return this.http.get<any>(`${environment.AppType}/GetList`, { params })
+    }
+    ActivateType = (model) => {
+        return this.http.put<any>(`${environment.AppType}/Activate`, model)
+    }
+    // Engine CRUD
+
+    AddEngine = (model) => {
+        return this.http.post<any>(`${environment.AppEngine}/Add`, model)
+    }
+    UpdateEngine = (model) => {
+        return this.http.put<any>(`${environment.AppEngine}/Update`, model)
+    }
+    GetEngine = (params) => {
+        return this.http.get<any>(`${environment.AppEngine}/Get`, { params })
+    }
+    GetEngineList = (params) => {
+        return this.http.get<any>(`${environment.AppEngine}/GetList`, { params })
+    }
+    ActivateEngine = (model) => {
+        return this.http.put<any>(`${environment.AppEngine}/Activate`, model)
+    }
     // Banner CRUD
 
     AddBanner = (model) => {
@@ -128,8 +196,8 @@ export class ConfigurationService {
         return this.http.get<any>(`${environment.AppValue}/GetLookupByCode`, { params })
     }
 
-      // For Login
-  LoginUser=(model)=>{
-    return this.http.post<any>(`${environment.AppLogin}/auth`, model)
-  }
+    // For Login
+    LoginUser = (model) => {
+        return this.http.post<any>(`${environment.AppLogin}/auth`, model)
+    }
 }

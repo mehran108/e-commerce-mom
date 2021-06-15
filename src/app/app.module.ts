@@ -33,7 +33,7 @@ import { ProductFormComponent } from './forms/product-form/product-form.componen
 import { CategoryFormComponent } from './forms/category-form/category-form.component';
 import { BannerFormComponent } from './forms/banner-form/banner-form.component';
 import { UserFormComponent } from './forms/user-form/user-form.component';
-import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfigurationService } from 'services/configuration.service';
 import { BrandComponent } from './brand/brand.component';
 import { BrandFormComponent } from './forms/brand-form/brand-form.component';
@@ -54,6 +54,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 // import { MatFormFieldModule } from "@angular/material";
+import { MakeComponent } from './make/make.component';
+import { ModelComponent } from './model/model.component';
+import { EngineComponent } from './engine/engine.component';
+import { TypeComponent } from './type/type.component';
+import { MakeFormComponent } from "./forms/make-form/make-form.component";
+import { ModelFormComponent } from "./forms/model-form/model-form.component";
+import { EngineFormComponent } from "./forms/engine-form/engine-form.component";
+import { TypeFormComponent } from "./forms/type-form/type-form.component";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -83,7 +91,15 @@ export function createTranslateLoader(http: HttpClient) {
     SliderFormComponent,
     SliderComponent,
     BusinessInfoComponent,
-    BusinessInfoFormComponent
+    BusinessInfoFormComponent,
+    MakeComponent,
+    ModelComponent,
+    EngineComponent,
+    TypeComponent,
+    MakeFormComponent,
+    ModelFormComponent,
+    EngineFormComponent,
+    TypeFormComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -136,7 +152,11 @@ export function createTranslateLoader(http: HttpClient) {
     BrandFormComponent,
     UserFormComponent,
     SliderFormComponent,
-    BusinessInfoFormComponent
+    BusinessInfoFormComponent,
+    MakeFormComponent,
+    ModelFormComponent,
+    EngineFormComponent,
+    TypeFormComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

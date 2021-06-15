@@ -3,10 +3,14 @@ import { BannerComponent } from 'app/banner/banner.component';
 import { BrandComponent } from 'app/brand/brand.component';
 import { BusinessInfoComponent } from 'app/business-info/business-info.component';
 import { CategoryComponent } from 'app/category/category.component';
+import { EngineComponent } from 'app/engine/engine.component';
 import { ProductFormComponent } from 'app/forms/product-form/product-form.component';
+import { MakeComponent } from 'app/make/make.component';
+import { ModelComponent } from 'app/model/model.component';
 import { OrderComponent } from 'app/order/order.component';
 import { ProductComponent } from 'app/product/product.component';
 import { SliderComponent } from 'app/slider/slider.component';
+import { TypeComponent } from 'app/type/type.component';
 import { UserComponent } from 'app/user/user.component';
 
 //Route for content layout with sidebar, navbar and footer.
@@ -115,6 +119,22 @@ export const Full_ROUTES: Routes = [
   {
     path: 'slider',
     component: SliderComponent
+  },
+  {
+    path: 'make',
+    component: MakeComponent
+  },
+  {
+    path: 'model',
+    component: ModelComponent
+  },
+  {
+    path: 'engine',
+    component: EngineComponent
+  },
+  {
+    path: 'type',
+    component: TypeComponent
   },
   {
     path: 'business-info',
