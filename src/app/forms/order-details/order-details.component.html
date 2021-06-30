@@ -16,8 +16,10 @@
                                             <th>#</th>
                                             <th>Product Name</th>
                                             <th>Product Code</th>
-                                            <th>Sale Price</th>
+                                            <th>SalePrice</th>
                                             <th>Discount</th>
+                                            <th>DiscountedPrice</th>
+
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
@@ -26,8 +28,9 @@
                                             <td>{{i+1}}</td>
                                             <td>{{item.productName}}</td>
                                             <td>{{item.productCode}}</td>
-                                            <td>{{item.productPrice}}</td>
+                                            <td>{{item.productSalePrice}}</td>
                                             <td>{{item.productDiscount==null?0 :item.productDiscount }} %</td>
+                                            <td>{{item.productAfterDiscountedPrice}}</td>
                                             <td>{{item.productQuantity}}</td>
 
 

@@ -12,7 +12,7 @@ import { ConfigurationService } from 'services/configuration.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { ViewChild } from '@angular/core';
-
+import { nanoid } from 'nanoid';
 //@ViewChild('myInput',{static:false}) myInputVariable: ElementRef
 
 
@@ -35,6 +35,7 @@ export class ProductFormComponent implements OnInit {
   public fg: FormGroup;
   isEdit = false;
   categoryList = [];
+  quantity:any;
   brandList = [];
   uploadPercent;
   documents = [];
@@ -131,6 +132,7 @@ export class ProductFormComponent implements OnInit {
     // categories=JSON.parse(categories);
     this.fg.controls['categories'].setValue(JSON.parse(this.fg.controls['categories'].value));
     this.list=this.fg.controls['categories'].value;
+    this.quantity=this.fg.controls['stock'].value;
    // console.log("this.list",this.list);
   }
   public initializeForm = () => {
@@ -196,7 +198,7 @@ export class ProductFormComponent implements OnInit {
     const model = {
       ...this.fg.value
     };
-    model.stock = model.stock ? 1 : 0;
+    model.stock = model.stock ? this.quantity : 0;
     if (this.isEdit) {
       //console.log("JSON",JSON.stringify(this.list));
 
@@ -244,6 +246,7 @@ export class ProductFormComponent implements OnInit {
     this.ngOnInit();
     }
     this.documents=[];
+    this.quantity="";
     this.myInputVariable.nativeElement.value = "";
   }
   uploadFile(event) {
@@ -252,6 +255,8 @@ export class ProductFormComponent implements OnInit {
       this.spinner.show();
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < event.target.files.length; i++) {
+        //event.target.files[0].name=event.target.files[0].name +nanoid(10);
+        console.log(nanoid(10))
         this.uploadFilesToFirebase(event.target.files[i]);
       }
 
@@ -262,7 +267,9 @@ export class ProductFormComponent implements OnInit {
 
   }
   public uploadFilesToFirebase = (file: File) => {
-    const filePath = `Uploads/${file.name}`;
+    const file_name=nanoid(10)+file.name;
+    console.log(file_name);
+    const filePath = `Uploads/${file_name}`;
     const fileRef = this.storage.ref(filePath);
     const task = this.storage.upload(filePath, file);
     // observe percentage changes
@@ -271,7 +278,7 @@ export class ProductFormComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe(res => {
-          this.documents.push({ url: res, documentName: file.name });
+          this.documents.push({ url: res, documentName: file_name });
           this.spinner.hide();
           
           console.log(this.documents);

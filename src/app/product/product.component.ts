@@ -147,7 +147,7 @@ export class ProductComponent implements OnInit {
     }
   }
   public getProductList = () => {
-    this.configService.GetProductList({}).subscribe((res: any) => {
+    this.configService.GetAllProductList({}).subscribe((res: any) => {
       this.productList = res;
       this.productList = this.productList.map(product => ({ ...product, category: this.categoryList.find(cat => cat.categoryId === product.categoryId) }))
     });
