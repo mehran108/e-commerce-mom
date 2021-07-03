@@ -109,6 +109,7 @@ export class ConfigurationService {
     ActivateUser = (model) => {
         return this.http.put<any>(`${environment.AppUser}/Activate`, model)
     }
+    // Order CRUD
     GetOrder = (params) => {
         return this.http.get<any>(`${environment.AppOrder}/Get`, { params })
     }
@@ -127,6 +128,9 @@ export class ConfigurationService {
     GetLookupByCode = (params) => {
         return this.http.get<any>(`${environment.AppValue}/GetLookupByCode`, { params })
     }
+    UpdateOrderStatus = (model) => {
+        return this.http.put<any>(`${environment.AppOrder}/UpdateStatus`, model)
+    }
 
     //OrderDetails Crud
     GetOrderDetails = (params) => {
@@ -134,7 +138,7 @@ export class ConfigurationService {
     }
 
       // For Login
-  LoginUser=(model)=>{
-    return this.http.post<any>(`${environment.AppLogin}/auth`, model)
+    LoginUser=(model)=>{
+        return this.http.post<any>(`${environment.AppLogin}/auth`, model)
   }
 }

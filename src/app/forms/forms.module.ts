@@ -23,6 +23,7 @@ import { ArchwizardComponent } from './archwizard/archwizard.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { OrderStatusComponent } from './order-status/order-status.component';
 
 
 
@@ -54,6 +55,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
         InputGroupsComponent,
         InputGridComponent,
         ArchwizardComponent,
+        OrderStatusComponent,
     ]
 
 })

@@ -5,6 +5,8 @@ import { ButtonRendererComponent } from 'common/button-renderer.component';
 import { NameRendererComponent } from 'common/name.renderer';
 import { ConfigurationService } from 'services/configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EditButtonRendererComponent } from 'common/edit-button-renderer';
+import { OrderStatusComponent } from 'app/forms/order-status/order-status.component';
 
 @Component({
   selector: 'app-order',
@@ -20,10 +22,14 @@ export class OrderComponent implements OnInit {
       cellRendererParams: {
       onClick: this.open.bind(this),
      },
-      pinned: 'left',
       width:120
      }
      ,
+     {
+      headerName: 'Status',
+      field: 'orderStatus',
+      pinned:'left'
+    },
      {
       headerName: 'Order Code',
       field: 'orderTrackingID',
@@ -50,7 +56,8 @@ export class OrderComponent implements OnInit {
     },
     {
       headerName: 'S_R Address',
-      field: 'shipperAddress'
+      field: 'shipperAddress',
+      width:620
     },
     // {
     //   headerName: 'B_R Name',
@@ -64,9 +71,15 @@ export class OrderComponent implements OnInit {
     //   headerName: 'B_R Address',
     //   field: 'billingAddress'
     // },
+   
     {
       headerName: 'Status',
-      field: 'orderStatus'
+      field: 'orderStatus',
+      pinned:'right',
+      cellRenderer: 'statusButtonRenderer',
+      cellRendererParams: {
+        onClick: this.HandleChangeStatus.bind(this)
+      },
     },
     {
       headerName: 'Action',
@@ -76,8 +89,7 @@ export class OrderComponent implements OnInit {
       cellRenderer: 'deleteButtonRenderer',
       cellRendererParams: {
         onClick: this.openRemoveDialog.bind(this),
-      },
-      width: 120
+      }
     }
   ];
   _getIndexValue(args: ValueGetterParams): any {
@@ -99,7 +111,8 @@ export class OrderComponent implements OnInit {
     this.gridOptions = {
       frameworkComponents: {
         nameRenderer: NameRendererComponent,
-        deleteButtonRenderer: ButtonRendererComponent
+        deleteButtonRenderer: ButtonRendererComponent,
+        statusButtonRenderer: EditButtonRendererComponent
       },
       defaultColDef: {
         sortable: true,
@@ -109,6 +122,17 @@ export class OrderComponent implements OnInit {
       pagination: true,
       paginationAutoPageSize: true,
     };
+  }
+  HandleChangeStatus(orderRow){
+    console.log("orderId",orderRow.rowData['orderId']);
+    // const orderId = orderRow.rowData['orderId'];
+    const modalRef = this.modalService.open(OrderStatusComponent, { size: 'lg' });
+    // const status=["Pending","Approved", "Shipped","Closed"];
+    const orderDetail={};
+    orderDetail['Id']=orderRow.rowData['orderId'];
+    orderDetail['Status']=orderRow.rowData['orderStatus'];
+    console.log({orderDetail});
+    modalRef.componentInstance.content = orderDetail;
   }
   ngOnInit() {
     this.getOrderList();

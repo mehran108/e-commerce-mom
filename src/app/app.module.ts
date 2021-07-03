@@ -55,6 +55,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { AngularEditorModule } from "@kolkov/angular-editor";
+import { OrderStatusComponent } from './forms/order-status/order-status.component';
 // import { MatFormFieldModule } from "@angular/material";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -86,7 +87,8 @@ export function createTranslateLoader(http: HttpClient) {
     SliderComponent,
     BusinessInfoComponent,
     BusinessInfoFormComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    OrderStatusComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -141,7 +143,8 @@ export function createTranslateLoader(http: HttpClient) {
     UserFormComponent,
     SliderFormComponent,
     BusinessInfoFormComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    OrderStatusComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
