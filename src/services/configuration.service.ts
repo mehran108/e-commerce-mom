@@ -89,6 +89,9 @@ export class ConfigurationService {
     GetProductList = (params) => {
         return this.http.get<any>(`${environment.AppProduct}/GetList`, { params })
     }
+    GetAllProductList = (params) => {
+        return this.http.get<any>(`${environment.AppProduct}/GetAllList`, { params })
+    }
     ActivateProduct = (model) => {
         return this.http.put<any>(`${environment.AppProduct}/Activate`, model)
     }
