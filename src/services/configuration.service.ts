@@ -116,6 +116,9 @@ export class ConfigurationService {
     GetOrder = (params) => {
         return this.http.get<any>(`${environment.AppOrder}/Get`, { params })
     }
+    GetOrderStatus = (params) => {
+        return this.http.get<any>(`${environment.AppOrderStatus}/GetList`, { params })
+    }
     GetOrderList = (params) => {
         return this.http.get<any>(`${environment.AppOrder}/GetList`, { params })
     }

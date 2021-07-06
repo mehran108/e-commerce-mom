@@ -18,6 +18,7 @@ export const environment = {
   AppDocument: `${url}/Document`,
   AppValue: `${url}/Values`,
   AppLogin: `${tokenurl}/token`,
+  AppOrderStatus: `${url}/OrderStatus`,
   firebaseConfig: {
     apiKey: 'AIzaSyB9JuijGrW7ikudwKDo2VhGRxVwtkWiUUs',
     authDomain: 'angular-systems.firebaseapp.com',

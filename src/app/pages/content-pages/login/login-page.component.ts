@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ConfigurationService } from 'services/configuration.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
     selector: 'app-login-page',
@@ -24,7 +25,8 @@ export class LoginPageComponent {
         private route: ActivatedRoute,
         public configService: ConfigurationService,
         public fb: FormBuilder,
-        public snackbar: MatSnackBar
+        public snackbar: MatSnackBar,
+        private spinner: NgxSpinnerService
         ) { }
 
     ngOnInit() {
@@ -69,6 +71,7 @@ export class LoginPageComponent {
         console.log({loginObj});
         //this.spinner.show();
         if(userForm.valid){
+          this.spinner.show();
           this.configService.LoginUser(loginObj)
         .subscribe(
           data => {
@@ -78,8 +81,8 @@ export class LoginPageComponent {
              // this.spinner.hide();
               const accessToken = data.data.value.response["access_token"];
               const refreshToken = data.data.value.response["refresh_token"];
-    
               this.setToken(accessToken,refreshToken);
+              this.spinner.hide();
               this.router.navigate(['/dashboard/dashboard1']);
               //this.snackbar.open('Login Successfull', '×', { panelClass: ['success'], verticalPosition: 'top', duration: 5000 });
     
@@ -89,11 +92,13 @@ export class LoginPageComponent {
 
             }
             else if(data.code == "909"){
-             
+              this.spinner.hide();
               //this.spinner.hide();
               this.snackbar.open('Error!!!'+ 'Login Failed', '×', { panelClass: ['default'], verticalPosition: 'top', duration: 3000 });
             }
+            
             else if(data.code == "902"){
+              this.spinner.hide();
              // this.spinner.hide();
               this.snackbar.open('Error!!! '+ 'Invalid username or password', '×', { panelClass: ['default'], verticalPosition: 'top', duration: 3000 });
             }

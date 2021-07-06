@@ -14,6 +14,7 @@ export const environment = {
   AppDocument: `${url}/Document`,
   AppValue: `${url}/Values`,
   AppLogin: `${tokenurl}/token`,
+  AppOrderStatus: `${url}/OrderStatus`,
   firebaseConfig: {
     // apiKey: 'AIzaSyAw_2dKlgu1aZK1PrBeC0124L870zmK_xs',
     // authDomain: 'thedairybutchers.firebaseapp.com',

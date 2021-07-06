@@ -7,6 +7,7 @@ import { ConfigurationService } from 'services/configuration.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EditButtonRendererComponent } from 'common/edit-button-renderer';
 import { OrderStatusComponent } from 'app/forms/order-status/order-status.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-order',
@@ -16,19 +17,21 @@ import { OrderStatusComponent } from 'app/forms/order-status/order-status.compon
 export class OrderComponent implements OnInit {
   public columnDefs = [
     { 
-      headerName: 'Sr. no',
+      headerName: 'Sr.#',
       valueGetter: (args) => this._getIndexValue(args),
       cellRenderer: 'nameRenderer',
       cellRendererParams: {
       onClick: this.open.bind(this),
      },
-      width:120
+     pinned:'left',
+      width:100
      }
      ,
      {
       headerName: 'Status',
       field: 'orderStatus',
-      pinned:'left'
+      pinned:'left',
+      width:120
     },
      {
       headerName: 'Order Code',
@@ -73,9 +76,10 @@ export class OrderComponent implements OnInit {
     // },
    
     {
-      headerName: 'Status',
+      headerName: 'Edit',
       field: 'orderStatus',
       pinned:'right',
+      width:120,
       cellRenderer: 'statusButtonRenderer',
       cellRendererParams: {
         onClick: this.HandleChangeStatus.bind(this)
@@ -85,6 +89,7 @@ export class OrderComponent implements OnInit {
       headerName: 'Action',
       field: 'delete',
       filter: false,
+      width:100,
       pinned: 'right',
       cellRenderer: 'deleteButtonRenderer',
       cellRendererParams: {
@@ -106,7 +111,8 @@ export class OrderComponent implements OnInit {
   public selectedCategory: any;
   constructor(
     public configService: ConfigurationService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public toastr: ToastrService
   ) {
     this.gridOptions = {
       frameworkComponents: {
@@ -125,14 +131,21 @@ export class OrderComponent implements OnInit {
   }
   HandleChangeStatus(orderRow){
     console.log("orderId",orderRow.rowData['orderId']);
-    // const orderId = orderRow.rowData['orderId'];
-    const modalRef = this.modalService.open(OrderStatusComponent, { size: 'lg' });
-    // const status=["Pending","Approved", "Shipped","Closed"];
-    const orderDetail={};
-    orderDetail['Id']=orderRow.rowData['orderId'];
-    orderDetail['Status']=orderRow.rowData['orderStatus'];
-    console.log({orderDetail});
-    modalRef.componentInstance.content = orderDetail;
+
+    if(orderRow.rowData['orderStatus'] == 'Cancelled' || orderRow.rowData['orderStatus'] == 'Returned'){
+      this.toastr.error('Cancelled/Returned Orders can not be Updated', 'Order Status');
+    }
+    else{
+      const modalRef = this.modalService.open(OrderStatusComponent, { size: 'lg' });
+      modalRef.componentInstance.getOrderListLatest.subscribe((receivedEntry) => {
+        this.getOrderList();
+        })
+      const orderDetail={};
+      orderDetail['Id']=orderRow.rowData['orderId'];
+      orderDetail['Status']=orderRow.rowData['orderStatus'];
+      console.log({orderDetail});
+      modalRef.componentInstance.content = orderDetail;
+    }
   }
   ngOnInit() {
     this.getOrderList();
@@ -142,6 +155,7 @@ export class OrderComponent implements OnInit {
       }
     };
   }
+
   open(content) {
     const modalRef = this.modalService.open(OrderDetailsComponent, { size: 'lg' });
     modalRef.componentInstance.content = content;

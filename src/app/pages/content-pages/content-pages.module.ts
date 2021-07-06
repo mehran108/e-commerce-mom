@@ -13,6 +13,7 @@ import { RegisterPageComponent } from "./register/register-page.component";
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { MatCardModule } from '@angular/material/card';
         ReactiveFormsModule,
         MatInputModule,
         MatSnackBarModule,
-        MatCardModule
+        MatCardModule,
+        NgxSpinnerModule,
             
     ],
     declarations: [

@@ -1,11 +1,12 @@
-<section id="basic-form-layouts">
+<section id="basic-form-layouts" *ngIf="statusList">
   <div class="card">
     <div class="card-body d-flex justify-content-center">
-      <div class="btn-group btn-group-lg" role="group" aria-label="Basic mixed styles example">
-        <button type="button" [ngClass]="status == 'Pending' ? 'btn btn-outline-warning mx-1 active' : 'btn btn-outline-warning mx-1'" (click)="UpdateOrderStatus('Pending')" >Pending</button>
-        <button type="button" [ngClass]="status == 'Approved' ? 'btn btn-outline-success mx-1 active' : 'btn btn-outline-success mx-1'" (click)="UpdateOrderStatus('Approved')" >Approved</button>
-        <button type="button" [ngClass]="status == 'Shipped' ? 'btn btn-outline-info mx-1 active' : 'btn btn-outline-info mx-1'" (click)="UpdateOrderStatus('Shipped')" >Shipped</button>
-        <button type="button" [ngClass]="status == 'Canceled' ? 'btn btn-outline-danger mx-1 active' : 'btn btn-outline-danger mx-1'" (click)="UpdateOrderStatus('Canceled')" >Canceled</button>
+      <div *ngFor="let orderStatus of statusList;let i=index" class="btn-group btn-group-lg" role="group" aria-label="Basic mixed styles example" >
+        <button *ngIf="orderStatus.title=='Pending'" [disabled]='is_readonly' type="button" [ngClass]="status == 'Pending' ? 'btn btn-outline-warning mx-1 active' : 'btn btn-outline-warning mx-1'" (click)="UpdateOrderStatus(orderStatus.orderStatusId)" >{{orderStatus.title}}</button>
+        <button *ngIf="orderStatus.title=='Approved'" [disabled]='is_readonly' type="button" [ngClass]="status == 'Approved' ? 'btn btn-outline-success mx-1 active' : 'btn btn-outline-success mx-1'" (click)="UpdateOrderStatus(orderStatus.orderStatusId)" >{{orderStatus.title}}</button> 
+        <button *ngIf="orderStatus.title=='Shipped'" [disabled]='is_readonly' type="button" [ngClass]="status == 'Shipped' ? 'btn btn-outline-info mx-1 active' : 'btn btn-outline-info mx-1'" (click)="UpdateOrderStatus(orderStatus.orderStatusId)" >{{orderStatus.title}}</button>
+        <button *ngIf="orderStatus.title=='Cancelled'" [disabled]='is_readonly' type="button" [ngClass]="status == 'Cancelled' ? 'btn btn-outline-danger mx-1 active' : 'btn btn-outline-danger mx-1'" (click)="UpdateOrderStatus(orderStatus.orderStatusId)" >{{orderStatus.title}}</button>
+        <button *ngIf="orderStatus.title=='Returned'" [disabled]='is_readonly' type="button" [ngClass]="status == 'Returned' ? 'btn btn-outline-secondary mx-1 active' : 'btn btn-outline-secondary mx-1'" (click)="UpdateOrderStatus(orderStatus.orderStatusId)" >{{orderStatus.title}}</button>
       </div>
     </div>
   </div>
