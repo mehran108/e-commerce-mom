@@ -4,43 +4,83 @@
     <div class="row full-height-vh m-0">
       <div class="col-md-4"></div>
       <div class="col-md-4 d-flex align-items-center justify-content-center">
-        <div class="card" >
+        <div class="card">
           <div class="card-content">
             <div class="card-body login-img">
               <div class="row m-0">
                 <!-- <div class="col-lg-6 d-lg-block d-none py-2 px-3 text-center align-middle">
                   <img src="../../assets/img/unnamed.png" alt="" class="img-fluid mt-5" width="400" height="230" />
                 </div> -->
-                <div class="br-10  col-lg-12 col-md-12 px-4 pt-3">
+                <div class="br-10 col-lg-12 col-md-12 px-4 pt-3">
                   <div class="d-flex justify-content-between mb-2">
                     <div class="option-login">
-                      <img src="../../assets/img/toysmall.png" alt="" class="img-fluid" width="400" height="230" />
+                      <!-- <img src="../../assets/img/toysmall.png" alt="" class="img-fluid" width="400" height="230" /> -->
                     </div>
                   </div>
                   <h4 class="card-title mb-2">Login</h4>
                   <p class="card-text mb-3">
                     Welcome, please login to your account.
                   </p>
-                
-                  <form fxLayout="row wrap" [formGroup]="loginForm" style="margin-bottom: 10%;">
-                    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+
+                  <form
+                    fxLayout="row wrap"
+                    [formGroup]="loginForm"
+                    style="margin-bottom: 10%"
+                  >
+                    <div
+                      fxFlex="100"
+                      fxFlex.gt-sm="100"
+                      class="px-1"
+                      ngClass.sm="mt-1"
+                      ngClass.xs="mt-1"
+                    >
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Email or Phone" [(ngModel)]="uEmail"  formControlName="uEmail"
-                          required>
-                          <!-- <mat-error *ngIf="loginForm.controls['uEmail'].invalid">Email or Phone is required</mat-error> -->
+                        <input
+                          matInput
+                          placeholder="Email or Phone"
+                          formControlName="uEmail"
+                          required
+                        />
+                        <!-- <mat-error *ngIf="loginForm.controls['uEmail'].invalid">Email or Phone is required</mat-error> -->
                       </mat-form-field>
                     </div>
-                    <div fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
+                    <div
+                      fxFlex="100"
+                      fxFlex.gt-sm="100"
+                      class="px-1"
+                      ngClass.sm="mt-1"
+                      ngClass.xs="mt-1"
+                    >
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Enter Password" type="password" [(ngModel)]="uPassword"  formControlName="uPassword" required>
+                        <input
+                          matInput
+                          placeholder="Enter Password"
+                          type="password"
+                          formControlName="uPassword"
+                          required
+                        />
                         <!-- <mat-error *ngIf="loginForm.controls['uPassword'].invalid">Password is required</mat-error> -->
                       </mat-form-field>
                     </div>
-                    <div class="button-wrap" fxFlex="100" fxFlex.gt-sm="100" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
-                      <button class="btn-project" (click)="Login(loginForm)" mat-raised-button color="accent" type="submit">Log in</button>
+                    <div
+                      class="button-wrap"
+                      fxFlex="100"
+                      fxFlex.gt-sm="100"
+                      class="px-1"
+                      ngClass.sm="mt-1"
+                      ngClass.xs="mt-1"
+                    >
+                      <button
+                        class="btn-project"
+                        (click)="Login(loginForm)"
+                        mat-raised-button
+                        color="accent"
+                        type="submit"
+                      >
+                        Log in
+                      </button>
                     </div>
                   </form>
-             
                 </div>
               </div>
             </div>
