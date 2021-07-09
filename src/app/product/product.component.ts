@@ -29,6 +29,10 @@ export class ProductComponent implements OnInit {
     }
     ,
     {
+    headerName: 'Part Number',
+    field: 'partNumber'
+  },
+    {
     headerName: 'Product',
     field: 'productName'
   },

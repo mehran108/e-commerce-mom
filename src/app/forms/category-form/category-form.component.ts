@@ -30,7 +30,7 @@ export class CategoryFormComponent implements OnInit {
       categoryId: [0],
       categoryName: [''],
       description: [''],
-      termsAndCondition: [''],
+      termsAndConditions: [''],
       imageUrl: [''],
       parentId: [null],
       isActive: [true]

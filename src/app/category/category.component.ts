@@ -41,6 +41,13 @@ export class CategoryComponent implements OnInit {
       width: 500
     },
     {
+      headerName: 'Image',
+      field: 'imageUrl',
+      cellRenderer: params => {
+        return params.value ? `<img width="50" height="50" src=${params.value}>` : '';
+      },
+    },
+    {
       headerName: '',
       field: 'delete',
       filter: false,
