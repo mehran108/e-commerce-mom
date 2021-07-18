@@ -1,29 +1,39 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/storage';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Gallery, GalleryItem, ImageItem, ImageSize, ThumbnailsPosition } from '@ngx-gallery/core';
-import { Lightbox } from '@ngx-gallery/lightbox';
-import { ToastrService } from 'ngx-toastr';
-import { ConfirmationDialogComponent } from 'reusable/confirmation-dialog/confirmation-dialog.component';
-import { finalize } from 'rxjs/operators';
-import { ConfigurationService } from 'services/configuration.service';
+import { Component, Input, OnInit } from "@angular/core";
+import { AngularFireStorage } from "@angular/fire/storage";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { NgbActiveModal, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import {
+  Gallery,
+  GalleryItem,
+  ImageItem,
+  ImageSize,
+  ThumbnailsPosition,
+} from "@ngx-gallery/core";
+import { Lightbox } from "@ngx-gallery/lightbox";
+import { ToastrService } from "ngx-toastr";
+import { ConfirmationDialogComponent } from "reusable/confirmation-dialog/confirmation-dialog.component";
+import { finalize } from "rxjs/operators";
+import { ConfigurationService } from "services/configuration.service";
 import { NgxSpinnerService } from "ngx-spinner";
 
-
-
 @Component({
-  selector: 'app-product-form',
-  templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  selector: "app-product-form",
+  templateUrl: "./product-form.component.html",
+  styleUrls: ["./product-form.component.scss"],
 })
 export class ProductFormComponent implements OnInit {
-
   @Input() title;
   @Input() content;
   // categories = new FormControl();
-  categoryList1: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  categoryList1: string[] = [
+    "Extra cheese",
+    "Mushroom",
+    "Onion",
+    "Pepperoni",
+    "Sausage",
+    "Tomato",
+  ];
   items: GalleryItem[];
   files = [];
   public fg: FormGroup;
@@ -36,7 +46,7 @@ export class ProductFormComponent implements OnInit {
   modelList = [];
   engineList = [];
   typeList = [];
-  list:any=[];
+  list: any = [];
   productId;
   constructor(
     public fb: FormBuilder,
@@ -44,36 +54,35 @@ export class ProductFormComponent implements OnInit {
     public configService: ConfigurationService,
     public toastr: ToastrService,
     private storage: AngularFireStorage,
-    public gallery: Gallery, public lightbox: Lightbox,
+    public gallery: Gallery,
+    public lightbox: Lightbox,
     public route: ActivatedRoute,
     private modalService: NgbModal,
-    private spinner: NgxSpinnerService
-  ) {
-  }
+    private spinner: NgxSpinnerService,
+    public router: Router
+  ) {}
 
   ngOnInit() {
-    
-
-    this.configService.GetCategoryList({}).subscribe(res => {
+    this.configService.GetCategoryList({}).subscribe((res) => {
       this.categoryList = res;
     });
-    this.configService.GetBrandList({}).subscribe(res => {
+    this.configService.GetBrandList({}).subscribe((res) => {
       this.brandList = res;
     });
-    this.configService.GetMakeList({}).subscribe(res => {
+    this.configService.GetMakeList({}).subscribe((res) => {
       this.makeList = res;
     });
-    this.configService.GetModelList({}).subscribe(res => {
+    this.configService.GetModelList({}).subscribe((res) => {
       this.modelList = res;
     });
-    this.configService.GetEngineList({}).subscribe(res => {
+    this.configService.GetEngineList({}).subscribe((res) => {
       this.engineList = res;
     });
-    this.configService.GetTypeList({}).subscribe(res => {
+    this.configService.GetTypeList({}).subscribe((res) => {
       this.typeList = res;
     });
     this.initializeForm();
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       if (params && params.id) {
         this.productId = atob(params.id);
         this.getProduct();
@@ -82,71 +91,72 @@ export class ProductFormComponent implements OnInit {
     this.loadGallery();
   }
   getProduct() {
-    this.configService.GetProduct({ productId: this.productId }).subscribe(res => {
-      this.isEdit = true;
-      this.initializeFormWithValues(res);
-      this.documents = res.pictures;
-      this.loadGallery();
-    });
+    this.configService
+      .GetProduct({ productId: this.productId })
+      .subscribe((res) => {
+        this.isEdit = true;
+        this.initializeFormWithValues(res);
+        this.documents = res.pictures;
+        this.loadGallery();
+      });
   }
   loadGallery = () => {
     /** Basic Gallery Example */
 
     // Creat gallery items
-    this.items = this.documents.map(item => new ImageItem({ src: item.url, thumb: item.url }));
-
+    this.items = this.documents.map(
+      (item) => new ImageItem({ src: item.url, thumb: item.url })
+    );
 
     /** Lightbox Example */
 
     // Get a lightbox gallery ref
-    const lightboxRef = this.gallery.ref('lightbox');
+    const lightboxRef = this.gallery.ref("lightbox");
 
     // Add custom gallery config to the lightbox (optional)
     lightboxRef.setConfig({
       imageSize: ImageSize.Cover,
-      thumbPosition: ThumbnailsPosition.Bottom
+      thumbPosition: ThumbnailsPosition.Bottom,
     });
 
     // Load items into the lightbox gallery ref
     lightboxRef.load(this.items);
-  }
+  };
   initializeFormWithValues = (brand) => {
-    
-    Object.keys(this.fg.controls).forEach(key => {
+    Object.keys(this.fg.controls).forEach((key) => {
       this.fg.controls[key].setValue(brand[key]);
-    })
-    console.log(this.fg.controls);
-    // var categories = this.fg.controls['categories'].value;
-    // categories=JSON.parse(categories);
-    this.fg.controls['categories'].setValue(JSON.parse(this.fg.controls['categories'].value));
-  }
+    });
+  };
   public initializeForm = () => {
-    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'\&$#@!`";
+    const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'&$#@!`";
     const lengthOfCode = 6;
     this.fg = this.fb.group({
       productId: [0],
-      productName: ['', Validators.required],
+      productName: ["", Validators.required],
       price: [null, Validators.required],
       salesPrice: [null],
-      productCode: [this.makeRandom(lengthOfCode, possible), Validators.required],
+      productCode: [
+        this.makeRandom(lengthOfCode, possible),
+        Validators.required,
+      ],
       discount: [null],
       shortDetails: [null],
       description: [null],
       stock: [null],
       brandId: [null],
       sale: [null],
-      categories: ['',Validators.required],
+      categories: ["", Validators.required],
       newPro: [null],
       partNumber: [null],
-      tags: [''],
+      tags: [""],
       pictures: [],
-      categoryId:[null],
-      makeId:[null],
-      modelId:[null],
-      engineId:[null],
-      typeId:[null],
+      categoryId: [null],
+      makeId: [null],
+      modelId: [null],
+      engineId: [null],
+      typeId: [null],
     });
-  }
+  };
   makeRandom(lengthOfCode: number, possible: string) {
     let text = "";
     for (let i = 0; i < lengthOfCode; i++) {
@@ -154,16 +164,13 @@ export class ProductFormComponent implements OnInit {
     }
     return text;
   }
-  onRemove = (file) => {
-
-  }
-  onSelect = (file) => {
-  }
-  HandleChangeCategories=(categories)=>{
-    console.log({categories});
-    this.list=[];
-    for(var i=0 ; i< categories.length ; i++){
-      this.list.push(categories[i]['categoryId']);
+  onRemove = (file) => {};
+  onSelect = (file) => {};
+  HandleChangeCategories = (categories) => {
+    console.log({ categories });
+    this.list = [];
+    for (var i = 0; i < categories.length; i++) {
+      this.list.push(categories[i]["categoryId"]);
     }
 
     // if(this.list.length > 1){
@@ -183,46 +190,63 @@ export class ProductFormComponent implements OnInit {
     //   this.list.push(categories[i]['categoryId']);
     // }
     console.log(this.list);
-  }
+  };
   onSubmit() {
-    const doc = this.documents.filter(document => !document.documentId);
-    this.fg.controls['pictures'].setValue(this.documents);
-    this.fg.controls['categories'].setValue(JSON.stringify(this.list) );
-    this.fg.controls['categoryId'].setValue( '1');
+    const doc = this.documents.filter((document) => !document.documentId);
+    this.fg.controls["pictures"].setValue(this.documents);
+    this.fg.controls["categories"].setValue(JSON.stringify(this.list));
+    this.fg.controls["categoryId"].setValue("1");
     const model = {
-      ...this.fg.value
+      ...this.fg.value,
     };
     model.stock = model.stock ? 1 : 0;
     if (this.isEdit) {
-      this.configService.UpdateProduct(model).subscribe(res => {
-        if (res) {
-          this.toastr.success('Product updated successfully.', 'Product');
-          // this.activeModal.close(true);
-        } else {
-          this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
+      this.configService.UpdateProduct(model).subscribe(
+        (res) => {
+          if (res) {
+            this.toastr.success("Product updated successfully.", "Product");
+            this.router.navigate(["/product"]);
+          } else {
+            this.toastr.info(
+              "Something went wrong Product not updated successfully.",
+              "Product"
+            );
+            // this.activeModal.close();
+          }
+        },
+        (error) => {
+          this.toastr.info(
+            "Something went wrong Product not updated successfully.",
+            "Product"
+          );
           // this.activeModal.close();
         }
-      }, error => {
-        this.toastr.info('Something went wrong Product not updated successfully.', 'Product');
-        // this.activeModal.close();
-      });
+      );
     } else {
-      this.configService.AddProduct(model).subscribe(res => {
-        if (res) {
-          this.toastr.success('Product added successfully.', 'Product');
-          // this.activeModal.close(true);
-        } else {
-          this.toastr.info('Something went wrong Product not added successfully.', 'Product');
+      this.configService.AddProduct(model).subscribe(
+        (res) => {
+          if (res) {
+            this.toastr.success("Product added successfully.", "Product");
+            this.router.navigate(['/product']);
+          } else {
+            this.toastr.info(
+              "Something went wrong Product not added successfully.",
+              "Product"
+            );
+            // this.activeModal.close();
+          }
+        },
+        (error) => {
+          this.toastr.info(
+            "Something went wrong Product not added successfully.",
+            "Product"
+          );
           // this.activeModal.close();
         }
-      }, error => {
-        this.toastr.info('Something went wrong Product not added successfully.', 'Product');
-        // this.activeModal.close();
-      })
+      );
     }
   }
   uploadFile(event) {
-
     if (event && event.target.files.length > 0) {
       this.spinner.show();
       // tslint:disable-next-line: prefer-for-of
@@ -238,42 +262,47 @@ export class ProductFormComponent implements OnInit {
     // observe percentage changes
     this.uploadPercent = task.percentageChanges();
     // get notified when the download URL is available
-    task.snapshotChanges().pipe(
-      finalize(() => {
-        fileRef.getDownloadURL().subscribe(res => {
-          this.documents.push({ url: res, documentName: file.name });
-          this.spinner.hide();
-          
-          console.log(this.documents);
-        });
-      })
-    )
-      .subscribe();
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe((res) => {
+            this.documents.push({ url: res, documentName: file.name });
+            this.spinner.hide();
 
-      
-  }
+            console.log(this.documents);
+          });
+        })
+      )
+      .subscribe();
+  };
   openConfirmation = (document) => {
-    const modalRef = this.modalService.open(ConfirmationDialogComponent, { size: 'sm', });
+    const modalRef = this.modalService.open(ConfirmationDialogComponent, {
+      size: "sm",
+    });
     document.isActive = false;
-    modalRef.componentInstance.header = 'Picture';
+    modalRef.componentInstance.header = "Picture";
     modalRef.componentInstance.content = document;
-    modalRef.result.then(res => {
+    modalRef.result.then((res) => {
       if (res) {
         if (document.documentId) {
           const model = {
             ...document,
-            active: false
-          }
-          this.configService.ActivateProductDocument(model).subscribe(res => {
+            active: false,
+          };
+          this.configService.ActivateProductDocument(model).subscribe((res) => {
             if (res) {
-              this.documents = this.documents.filter(doc => doc.documentId !== document.documentId);
+              this.documents = this.documents.filter(
+                (doc) => doc.documentId !== document.documentId
+              );
             }
           });
         } else {
-          this.documents = this.documents.filter(doc => doc.documentId !== document.documentId)
+          this.documents = this.documents.filter(
+            (doc) => doc.documentId !== document.documentId
+          );
         }
       }
     });
-
-  }
+  };
 }

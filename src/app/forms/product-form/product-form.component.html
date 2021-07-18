@@ -98,14 +98,14 @@
                       {{type.typeName}}</option>
                   </select>
                 </div>
-                <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6 ">
-                  <label for="category" class="label">Category</label>
-
-                  <ng-select id="sub-category" [items]="categoryList" bindLabel="categoryName" bindValue="categoryId"
-                    formControlName="categories" [multiple]="true" (change)="HandleChangeCategories($event)">
-                  </ng-select>
+                <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
+                  <label for="Type" class="label">Category</label>
+                  <select class="form-control" placeholder="Select Type" formControlName="categoryId" id="sub-Type">
+                    <option value="null">Select Category</option>
+                    <option *ngFor="let category of categoryList" [value]="category.categoryId">
+                      {{category.categoryName}}</option>
+                  </select>
                 </div>
-
               </div>
               <div class="row">
                 <div class="col-sm-6 col-xs-12 col-lg-3 col-md-3 form-group">
